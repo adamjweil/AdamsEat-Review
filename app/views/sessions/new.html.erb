@@ -1,27 +1,10 @@
-<div id="nav">
-<nav>
-  <ul>
-<%current_user%>
-    <% if logged_in? %>
-    <li><a href='/logout'>Log out</a></li>
-    <li><a href='/restaurants/new'>Post A Restaurant</a></li>
-    <li ><a href='/restaurants'>Restaurants</a></li>
-    <li><a href='/users/show'>Hello, <%= current_user.username %></a></li>
-    <% else %>
-    <li><a href='/sessions/new'>Log in</a></li>
-    <li><a href='/users/new'>Register</a></li>
-    <li ><a href='/restaurants'>Homepage</a></li>
-    <% end %>
-  </ul>
-</nav>
-</div>
 <html>
 <head>
-<title>Phase 2 Assessment</title>
+<title>NoteShare</title>
 
 <style type="text/css">
 		html,body{height: 100%; padding:0; margin:0;}
-		form{ width:30em;height:14.5em; margin:-5em auto 0 auto; position: relative; top:30%; border:1px dotted #ccc; padding:.25em; }
+		form{ width:30em;height:9em; margin:-5em auto 0 auto; position: relative; top:30%; border:1px dotted #ccc; padding:.25em; }
 		fieldset{ margin:0;   border:0;padding:0;}
 		legend{float:left; font-size: 200%; text-align: center; color:blue; font-weight: bold; border-bottom: 1px solid blue; width:15em;  padding:0; }
 		label, label+ input {display:inline; float:left;margin-top:1em;}
@@ -32,15 +15,13 @@
 </head>
 <body>
 <!-- ${param.errorMsg} -->
-	<form action="/users" method="post">
-		<fieldset><legend>Register</legend>
-      <label for="last_name">Username: </label>
-      <input  type="text" name="user[username]" placeholder="Username">
+	<form action="/sessions" method="post">
+		<fieldset><legend>Phase 2 Assessment</legend>
 			<label for="Email">Email: </label>
       <input  type="text" name="user[email]" placeholder="Email">
 			<label for="password">Password: </label>
       <input  type="password" name="user[password]" placeholder="Password" >
-			<input type="submit" value="Register" id="sub">
+			<input type="submit" value="Login" id="sub">
 		</fieldset>
 	</form>
 </body>

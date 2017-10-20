@@ -1,39 +1,67 @@
-<p id="notice"><%= notice %></p>
+<div id="nav">
+<nav>
+  <ul>
+<%current_user%>
+    <% if logged_in? %>
+    <li><a href='/logout'>Log out</a></li>
+    <li><a href='/restaurants/new'>Post A Restaurant</a></li>
+    <li ><a href='/restaurants'>Restaurants</a></li>
+    <li><a href='/users/show'>Hello, <%= current_user.username %></a></li>
+    <% else %>
+    <li><a href='/sessions/new'>Log in</a></li>
+    <li><a href='/users/new'>Register</a></li>
+    <li ><a href='/restaurants'>Homepage</a></li>
+    <% end %>
+  </ul>
+</nav>
+</div>
+<% find_user %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @restaurant.name %>
-</p>
+<br>
+<h1 style="text-decoration: underline;">Adam's Eat & Review</h1>
+    <br><br><br><br>
 
-<p>
-  <strong>Cuisine:</strong>
-  <%= @restaurant.cuisine %>
-</p>
+<div id="restaurant-details">
+  <h4><%= @restaurant.name %></h4>
+    <span>Cuisine: <%= @restaurant.cuisine %></span><br>
+    <span>Address: <%= @restaurant.address%> </span><br>
+    <span>City: <%= @restaurant.city %>,   State: <%= @restaurant.state %>,   Zip: <%= @restaurant.zip %> </span>
+  </div>
 
-<p>
-  <strong>Address:</strong>
-  <%= @restaurant.address %>
-</p>
+  <h3>Reviews<h5>(Count: <%= @restaurant.reviews.count %> | Avg Score: <%= @restaurant.average_review %> )  </h5></h3>
+  <div id="reviews">
+  <% @restaurant.reviews.each do |review| %>
+    <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
+    <h6> - <%= review.user.username %><br></h6>
+    <% end %>
+</div>
 
-<p>
-  <strong>City:</strong>
-  <%= @restaurant.city %>
-</p>
 
-<p>
-  <strong>State:</strong>
-  <%= @restaurant.state %>
-</p>
+  <div id="review">
+    <center><h3>Leave A Review</h3></center>
 
-<p>
-  <strong>Zip:</strong>
-  <%= @restaurant.zip %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @restaurant.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
+    <% if logged_in? %>
+    <form action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
+      <label for="rating">Rating:</label>
+      <select name="review[numerical_review]">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select><br><br>
+      <label for="content">Review: </label>
+        <input  type="text" name="review[content]" placeholder="Write Your Review Here" style="width:300px;height: 300px;"><br><br>
+        <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
+      <center><input type="submit" value="Post Your Review!" id="sub"></center>
+        <% else %>
+        <h5>You need to be logged in to post a review</h5>
+        <h5><a href="/sessions/new">Log in</a></h5>
+        <% end %>
+    </form>
+  </div>
