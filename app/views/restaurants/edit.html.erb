@@ -1,6 +1,39 @@
-<h1>Editing Restaurant</h1>
-
-<%= render 'form', restaurant: @restaurant %>
-
-<%= link_to 'Show', @restaurant %> |
-<%= link_to 'Back', restaurants_path %>
+<div id="nav">
+<nav>
+  <ul>
+<%current_user%>
+    <% if logged_in? %>
+    <li><a href='/logout'>Log out</a></li>
+    <li><a href='/restaurants/new'>Post A Restaurant</a></li>
+    <li ><a href='/restaurants'>Restaurants</a></li>
+    <li><a href='/users/show'>Hello, <%= current_user.username %></a></li>
+    <% else %>
+    <li><a href='/sessions/new'>Log in</a></li>
+    <li><a href='/users/new'>Register</a></li>
+    <li ><a href='/restaurants'>Homepage</a></li>
+    <% end %>
+  </ul>
+</nav>
+</div>
+<body>
+<!-- ${param.errorMsg} -->
+<h1 style="text-decoration: underline;">Adam's Eat & Review</h1>
+	<form action="/restaurants/<%= @restaurant.id %>" method="post">
+    <input name="_method" type="hidden" value="patch"/>
+		<fieldset><legend>Edit Restaurant</legend>
+      <label for="name">Name: </label>
+      <input  type="text" name="restaurant[name]" placeholder="<%= @restaurant.name %>" style="width:200px;">
+      <label for="cuisine">Cuisine: </label>
+      <input  type="text" name="restaurant[cuisine]" placeholder="<%= @restaurant.cuisine %>"style="width:200px;"><br><br>
+      <label for="address">Address: </label>
+      <input  type="text" name="restaurant[address]" placeholder="<%= @restaurant.address %>" style="width:460px;"><br><br>
+      <label for="city">City: </label>
+      <input  type="text" name="restaurant[city]" placeholder="<%= @restaurant.city %>">
+      <label for="state">State: </label>
+      <input  type="text" name="restaurant[state]" style="width:150px;"placeholder="<%= @restaurant.state %>">
+      <label for="zip">Zip: </label>
+      <input  type="text" name="restaurant[zip]" placeholder="<%= @restaurant.zip %>" style="width:75px;"><br><br>
+			<input type="submit" value="Edit Restaurant" id="sub">
+		</fieldset>
+	</form>
+</body>
