@@ -27113,3 +27113,901 @@ ActiveModel::ForbiddenAttributesError (ActiveModel::ForbiddenAttributesError):
   
 app/controllers/application_controller.rb:66:in `update_restaurant'
 app/controllers/restaurants_controller.rb:33:in `update'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (208.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "DBCEatAndReview_development"[0m
+  [1m[35m (194.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "DBCEatAndReview_test"[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1946821593201784845)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateRestaurants (20171020182422)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "restaurants" ("id" bigserial primary key, "name" character varying, "cuisine" character varying, "address" character varying, "city" character varying, "state" character varying, "zip" integer, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171020182422"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20171020182617)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "email" character varying, "admin" boolean DEFAULT 'f', "password_digest" character varying, "remember_digest" character varying, "access_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_access_token" ON "users"  ("access_token")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171020182617"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20171020182829)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "restaurant_id" integer, "user_id" bigint, "numerical_review" integer NOT NULL, "content" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20171020182829"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-21 03:54:14.510258"], ["updated_at", "2017-10-21 03:54:14.510258"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(1946821593201784845)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "restaurants"[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "users"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "reviews"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "izaiah_block@example.org"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."access_token" = $1 LIMIT $2[0m  [["access_token", "Idwk5zhDeGpOLwp2q8jTug"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "access_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "Daron Nienow I"], ["email", "izaiah_block@example.org"], ["password_digest", "$2a$10$V09Xf6TCQbChC6MG3ZAk4ux52ASUkdJj1vy4IoYnOr4PMqa0aWQJW"], ["access_token", "Idwk5zhDeGpOLwp2q8jTug"], ["created_at", "2017-10-21 03:54:19.265294"], ["updated_at", "2017-10-21 03:54:19.265294"]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ru@example.org"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."access_token" = $1 LIMIT $2[0m  [["access_token", "VeaxZ37iRTwQn-IJoH_MVQ"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "access_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "Clovis Goldner"], ["email", "ru@example.org"], ["password_digest", "$2a$10$7X5X0zfXQXAXOvgv9wKHYOqm4LECbKUyNZdZ4xmqwFWLDejQHJvM2"], ["access_token", "VeaxZ37iRTwQn-IJoH_MVQ"], ["created_at", "2017-10-21 03:54:19.336931"], ["updated_at", "2017-10-21 03:54:19.336931"]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mark@example.org"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."access_token" = $1 LIMIT $2[0m  [["access_token", "ZQ5tdG8xsKjk2I4QEfyJvQ"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "access_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "Bartholome Powlowski"], ["email", "mark@example.org"], ["password_digest", "$2a$10$RaP4/g7STHkQ4eISN9T3/e7wzwNtHleDWb2775lVu2lgTYTQ2Osx6"], ["access_token", "ZQ5tdG8xsKjk2I4QEfyJvQ"], ["created_at", "2017-10-21 03:54:19.404773"], ["updated_at", "2017-10-21 03:54:19.404773"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "katelyn_leannon@example.net"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."access_token" = $1 LIMIT $2[0m  [["access_token", "Qx0_FKFBd0slYCbHmd1_PA"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "access_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "Mrs. Leone Emmerich"], ["email", "katelyn_leannon@example.net"], ["password_digest", "$2a$10$R52RS2VJIqFmxcQWh64Mk.AWObjYADgq1WrNMdpNGfpYLjWLbOW1O"], ["access_token", "Qx0_FKFBd0slYCbHmd1_PA"], ["created_at", "2017-10-21 03:54:19.477885"], ["updated_at", "2017-10-21 03:54:19.477885"]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "dawn@example.net"], ["LIMIT", 1]]
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."access_token" = $1 LIMIT $2[0m  [["access_token", "DLsl3leB7tlRUQ81yn44Mg"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "access_token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "Forrest Casper"], ["email", "dawn@example.net"], ["password_digest", "$2a$10$Tb06.VG9/30zWP/my7ZQ0uoalF2eCg3FLxgz5YLtyGteMF1GDtztK"], ["access_token", "DLsl3leB7tlRUQ81yn44Mg"], ["created_at", "2017-10-21 03:54:19.543127"], ["updated_at", "2017-10-21 03:54:19.543127"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Libero inventore eaque."], ["cuisine", "[\"ea\"]"], ["address", "87786 Cormier Mountains"], ["city", "Lake Alexzanderbury"], ["state", "MO"], ["zip", 74203], ["user_id", 3], ["created_at", "2017-10-21 03:54:19.562028"], ["updated_at", "2017-10-21 03:54:19.562028"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Autem voluptatibus qui."], ["cuisine", "[\"deleniti\"]"], ["address", "2478 Homenick Greens"], ["city", "East Janet"], ["state", "PA"], ["zip", 62677], ["user_id", 4], ["created_at", "2017-10-21 03:54:19.565217"], ["updated_at", "2017-10-21 03:54:19.565217"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Consequuntur praesentium enim unde et voluptatibus."], ["cuisine", "[\"ut\"]"], ["address", "1036 Block Camp"], ["city", "Madalynview"], ["state", "NY"], ["zip", 99409], ["user_id", 1], ["created_at", "2017-10-21 03:54:19.568205"], ["updated_at", "2017-10-21 03:54:19.568205"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Praesentium mollitia reiciendis saepe animi aspernatur."], ["cuisine", "[\"saepe\"]"], ["address", "600 Olson Lakes"], ["city", "West Wilfordburgh"], ["state", "WI"], ["zip", 53729], ["user_id", 1], ["created_at", "2017-10-21 03:54:19.571031"], ["updated_at", "2017-10-21 03:54:19.571031"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Id."], ["cuisine", "[\"aut\"]"], ["address", "39936 Mac Mountains"], ["city", "Oberbrunnerville"], ["state", "ME"], ["zip", 94033], ["user_id", 2], ["created_at", "2017-10-21 03:54:19.573820"], ["updated_at", "2017-10-21 03:54:19.573820"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Quas dolorem temporibus maxime."], ["cuisine", "[\"ipsa\"]"], ["address", "87565 Abagail Rest"], ["city", "South Elmo"], ["state", "HI"], ["zip", 40516], ["user_id", 4], ["created_at", "2017-10-21 03:54:19.576576"], ["updated_at", "2017-10-21 03:54:19.576576"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Quo similique sint deserunt deleniti ratione."], ["cuisine", "[\"consequatur\"]"], ["address", "472 Paucek Pike"], ["city", "Wiegandside"], ["state", "IL"], ["zip", 63446], ["user_id", 1], ["created_at", "2017-10-21 03:54:19.579408"], ["updated_at", "2017-10-21 03:54:19.579408"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Ullam."], ["cuisine", "[\"quis\"]"], ["address", "218 Price Forest"], ["city", "Fionabury"], ["state", "WY"], ["zip", 75355], ["user_id", 5], ["created_at", "2017-10-21 03:54:19.582424"], ["updated_at", "2017-10-21 03:54:19.582424"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Nulla in et et."], ["cuisine", "[\"mollitia\"]"], ["address", "5755 Langosh Branch"], ["city", "North Easton"], ["state", "NC"], ["zip", 41542], ["user_id", 2], ["created_at", "2017-10-21 03:54:19.585676"], ["updated_at", "2017-10-21 03:54:19.585676"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Reiciendis."], ["cuisine", "[\"id\"]"], ["address", "2727 Bogisich Stream"], ["city", "Raulborough"], ["state", "IA"], ["zip", 87595], ["user_id", 5], ["created_at", "2017-10-21 03:54:19.588750"], ["updated_at", "2017-10-21 03:54:19.588750"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Reiciendis earum molestias."], ["cuisine", "[\"aut\"]"], ["address", "61692 Shields Spur"], ["city", "Willborough"], ["state", "MA"], ["zip", 57647], ["user_id", 5], ["created_at", "2017-10-21 03:54:19.591782"], ["updated_at", "2017-10-21 03:54:19.591782"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Voluptatibus velit id cum sint fuga."], ["cuisine", "[\"exercitationem\"]"], ["address", "800 Ebert Roads"], ["city", "South Yoshiko"], ["state", "NJ"], ["zip", 43739], ["user_id", 1], ["created_at", "2017-10-21 03:54:19.594638"], ["updated_at", "2017-10-21 03:54:19.594638"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Qui deleniti voluptatem."], ["cuisine", "[\"natus\"]"], ["address", "14480 Mitchel Canyon"], ["city", "New Jeanieshire"], ["state", "NH"], ["zip", 44236], ["user_id", 1], ["created_at", "2017-10-21 03:54:19.597841"], ["updated_at", "2017-10-21 03:54:19.597841"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Vel non quas."], ["cuisine", "[\"enim\"]"], ["address", "9085 Jayme Land"], ["city", "Lillieberg"], ["state", "AK"], ["zip", 60325], ["user_id", 4], ["created_at", "2017-10-21 03:54:19.601090"], ["updated_at", "2017-10-21 03:54:19.601090"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Ut quod nihil ratione totam doloribus."], ["cuisine", "[\"ad\"]"], ["address", "832 Hulda Green"], ["city", "Ernserburgh"], ["state", "SD"], ["zip", 82894], ["user_id", 1], ["created_at", "2017-10-21 03:54:19.604287"], ["updated_at", "2017-10-21 03:54:19.604287"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Praesentium."], ["cuisine", "[\"nisi\"]"], ["address", "97809 Roosevelt Crossroad"], ["city", "East Emerson"], ["state", "TX"], ["zip", 98704], ["user_id", 3], ["created_at", "2017-10-21 03:54:19.607311"], ["updated_at", "2017-10-21 03:54:19.607311"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Dolor ut ipsum aut."], ["cuisine", "[\"nulla\"]"], ["address", "7515 Llewellyn Flats"], ["city", "North Deangeloland"], ["state", "KY"], ["zip", 65081], ["user_id", 4], ["created_at", "2017-10-21 03:54:19.610923"], ["updated_at", "2017-10-21 03:54:19.610923"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Labore iusto maxime et."], ["cuisine", "[\"voluptatum\"]"], ["address", "77586 Rebecca Streets"], ["city", "South Xzaviermouth"], ["state", "OK"], ["zip", 99853], ["user_id", 4], ["created_at", "2017-10-21 03:54:19.613930"], ["updated_at", "2017-10-21 03:54:19.613930"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Sapiente quaerat."], ["cuisine", "[\"nobis\"]"], ["address", "568 Adelle Spring"], ["city", "East Kayleyport"], ["state", "HI"], ["zip", 17280], ["user_id", 5], ["created_at", "2017-10-21 03:54:19.617061"], ["updated_at", "2017-10-21 03:54:19.617061"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "restaurants" ("name", "cuisine", "address", "city", "state", "zip", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Mollitia."], ["cuisine", "[\"qui\"]"], ["address", "44504 Halle Heights"], ["city", "Lake Roscoehaven"], ["state", "UT"], ["zip", 45368], ["user_id", 1], ["created_at", "2017-10-21 03:54:19.620354"], ["updated_at", "2017-10-21 03:54:19.620354"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 10], ["user_id", 5], ["numerical_review", 7], ["content", "[\"quae\", \"omnis\", \"amet\", \"corrupti\", \"illo\"]"], ["created_at", "2017-10-21 03:54:19.638497"], ["updated_at", "2017-10-21 03:54:19.638497"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.3ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 18], ["user_id", 4], ["numerical_review", 1], ["content", "[\"et\", \"excepturi\", \"dignissimos\", \"reiciendis\", \"esse\"]"], ["created_at", "2017-10-21 03:54:19.643764"], ["updated_at", "2017-10-21 03:54:19.643764"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 13], ["user_id", 1], ["numerical_review", 0], ["content", "[\"natus\", \"consequuntur\", \"quia\", \"et\", \"eos\"]"], ["created_at", "2017-10-21 03:54:19.648441"], ["updated_at", "2017-10-21 03:54:19.648441"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.3ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 19], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 19], ["user_id", 5], ["numerical_review", 9], ["content", "[\"aperiam\", \"consectetur\", \"minus\", \"cumque\", \"molestias\"]"], ["created_at", "2017-10-21 03:54:19.653001"], ["updated_at", "2017-10-21 03:54:19.653001"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 2], ["numerical_review", 4], ["content", "[\"voluptatibus\", \"eaque\", \"molestiae\", \"vel\", \"nesciunt\"]"], ["created_at", "2017-10-21 03:54:19.657127"], ["updated_at", "2017-10-21 03:54:19.657127"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 4], ["numerical_review", 5], ["content", "[\"quasi\", \"tempora\", \"cupiditate\", \"delectus\", \"est\"]"], ["created_at", "2017-10-21 03:54:19.661227"], ["updated_at", "2017-10-21 03:54:19.661227"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 5], ["user_id", 3], ["numerical_review", 7], ["content", "[\"et\", \"in\", \"voluptas\", \"qui\", \"eveniet\"]"], ["created_at", "2017-10-21 03:54:19.665492"], ["updated_at", "2017-10-21 03:54:19.665492"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 19], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 19], ["user_id", 1], ["numerical_review", 8], ["content", "[\"eos\", \"odit\", \"voluptas\", \"vel\", \"vel\"]"], ["created_at", "2017-10-21 03:54:19.669339"], ["updated_at", "2017-10-21 03:54:19.669339"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 12], ["user_id", 1], ["numerical_review", 6], ["content", "[\"molestias\", \"aspernatur\", \"minus\", \"blanditiis\", \"ut\"]"], ["created_at", "2017-10-21 03:54:19.673380"], ["updated_at", "2017-10-21 03:54:19.673380"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 1], ["numerical_review", 9], ["content", "[\"distinctio\", \"iste\", \"ad\", \"fuga\", \"officia\"]"], ["created_at", "2017-10-21 03:54:19.677522"], ["updated_at", "2017-10-21 03:54:19.677522"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 2], ["numerical_review", 7], ["content", "[\"quas\", \"nostrum\", \"maiores\", \"et\", \"similique\"]"], ["created_at", "2017-10-21 03:54:19.681529"], ["updated_at", "2017-10-21 03:54:19.681529"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 3], ["user_id", 4], ["numerical_review", 4], ["content", "[\"adipisci\", \"vitae\", \"ea\", \"est\", \"suscipit\"]"], ["created_at", "2017-10-21 03:54:19.685733"], ["updated_at", "2017-10-21 03:54:19.685733"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 13], ["user_id", 4], ["numerical_review", 6], ["content", "[\"et\", \"amet\", \"quibusdam\", \"voluptatem\", \"omnis\"]"], ["created_at", "2017-10-21 03:54:19.689898"], ["updated_at", "2017-10-21 03:54:19.689898"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 10], ["user_id", 2], ["numerical_review", 6], ["content", "[\"rerum\", \"deserunt\", \"hic\", \"et\", \"sint\"]"], ["created_at", "2017-10-21 03:54:19.693835"], ["updated_at", "2017-10-21 03:54:19.693835"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 11], ["user_id", 3], ["numerical_review", 3], ["content", "[\"distinctio\", \"tempora\", \"facilis\", \"perferendis\", \"et\"]"], ["created_at", "2017-10-21 03:54:19.697717"], ["updated_at", "2017-10-21 03:54:19.697717"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 1], ["user_id", 5], ["numerical_review", 3], ["content", "[\"id\", \"sint\", \"nisi\", \"fugit\", \"rem\"]"], ["created_at", "2017-10-21 03:54:19.701605"], ["updated_at", "2017-10-21 03:54:19.701605"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 4], ["numerical_review", 4], ["content", "[\"veritatis\", \"soluta\", \"non\", \"asperiores\", \"tenetur\"]"], ["created_at", "2017-10-21 03:54:19.705529"], ["updated_at", "2017-10-21 03:54:19.705529"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 14], ["user_id", 2], ["numerical_review", 6], ["content", "[\"labore\", \"repellendus\", \"eos\", \"maiores\", \"perferendis\"]"], ["created_at", "2017-10-21 03:54:19.709561"], ["updated_at", "2017-10-21 03:54:19.709561"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 13], ["user_id", 4], ["numerical_review", 2], ["content", "[\"quia\", \"architecto\", \"quas\", \"porro\", \"totam\"]"], ["created_at", "2017-10-21 03:54:19.713629"], ["updated_at", "2017-10-21 03:54:19.713629"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 7], ["user_id", 4], ["numerical_review", 3], ["content", "[\"dolore\", \"sequi\", \"est\", \"ratione\", \"beatae\"]"], ["created_at", "2017-10-21 03:54:19.717428"], ["updated_at", "2017-10-21 03:54:19.717428"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 19], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 19], ["user_id", 2], ["numerical_review", 8], ["content", "[\"nostrum\", \"fugiat\", \"nihil\", \"vitae\", \"magni\"]"], ["created_at", "2017-10-21 03:54:19.721333"], ["updated_at", "2017-10-21 03:54:19.721333"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 2], ["user_id", 3], ["numerical_review", 8], ["content", "[\"sit\", \"minima\", \"natus\", \"enim\", \"consequatur\"]"], ["created_at", "2017-10-21 03:54:19.725235"], ["updated_at", "2017-10-21 03:54:19.725235"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 19], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 19], ["user_id", 5], ["numerical_review", 0], ["content", "[\"ut\", \"enim\", \"qui\", \"quia\", \"harum\"]"], ["created_at", "2017-10-21 03:54:19.728883"], ["updated_at", "2017-10-21 03:54:19.728883"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 1], ["numerical_review", 6], ["content", "[\"quidem\", \"perferendis\", \"non\", \"optio\", \"nihil\"]"], ["created_at", "2017-10-21 03:54:19.732530"], ["updated_at", "2017-10-21 03:54:19.732530"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 18], ["user_id", 5], ["numerical_review", 3], ["content", "[\"incidunt\", \"provident\", \"adipisci\", \"necessitatibus\", \"dolore\"]"], ["created_at", "2017-10-21 03:54:19.736410"], ["updated_at", "2017-10-21 03:54:19.736410"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 8], ["user_id", 4], ["numerical_review", 0], ["content", "[\"asperiores\", \"et\", \"iste\", \"sapiente\", \"aspernatur\"]"], ["created_at", "2017-10-21 03:54:19.740257"], ["updated_at", "2017-10-21 03:54:19.740257"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 2], ["numerical_review", 8], ["content", "[\"eum\", \"asperiores\", \"dolores\", \"quia\", \"laudantium\"]"], ["created_at", "2017-10-21 03:54:19.744455"], ["updated_at", "2017-10-21 03:54:19.744455"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 19], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 19], ["user_id", 3], ["numerical_review", 3], ["content", "[\"omnis\", \"laborum\", \"sed\", \"consequuntur\", \"ut\"]"], ["created_at", "2017-10-21 03:54:19.748573"], ["updated_at", "2017-10-21 03:54:19.748573"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 6], ["user_id", 3], ["numerical_review", 8], ["content", "[\"voluptatem\", \"est\", \"voluptatum\", \"nobis\", \"eos\"]"], ["created_at", "2017-10-21 03:54:19.752962"], ["updated_at", "2017-10-21 03:54:19.752962"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 4], ["user_id", 2], ["numerical_review", 9], ["content", "[\"facilis\", \"sequi\", \"et\", \"est\", \"quia\"]"], ["created_at", "2017-10-21 03:54:19.757330"], ["updated_at", "2017-10-21 03:54:19.757330"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 8], ["user_id", 4], ["numerical_review", 6], ["content", "[\"voluptatem\", \"ut\", \"recusandae\", \"repellat\", \"vitae\"]"], ["created_at", "2017-10-21 03:54:19.762465"], ["updated_at", "2017-10-21 03:54:19.762465"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 1], ["numerical_review", 0], ["content", "[\"consequatur\", \"harum\", \"non\", \"veritatis\", \"ullam\"]"], ["created_at", "2017-10-21 03:54:19.773499"], ["updated_at", "2017-10-21 03:54:19.773499"]]
+  [1m[35m (6.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 14], ["user_id", 2], ["numerical_review", 0], ["content", "[\"pariatur\", \"odio\", \"cumque\", \"voluptates\", \"illum\"]"], ["created_at", "2017-10-21 03:54:19.784551"], ["updated_at", "2017-10-21 03:54:19.784551"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 3], ["user_id", 3], ["numerical_review", 5], ["content", "[\"alias\", \"voluptate\", \"vitae\", \"velit\", \"veniam\"]"], ["created_at", "2017-10-21 03:54:19.788727"], ["updated_at", "2017-10-21 03:54:19.788727"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 6], ["user_id", 4], ["numerical_review", 4], ["content", "[\"modi\", \"tempora\", \"dolor\", \"laborum\", \"explicabo\"]"], ["created_at", "2017-10-21 03:54:19.793999"], ["updated_at", "2017-10-21 03:54:19.793999"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 9], ["user_id", 3], ["numerical_review", 5], ["content", "[\"impedit\", \"qui\", \"tempore\", \"voluptatibus\", \"rerum\"]"], ["created_at", "2017-10-21 03:54:19.798672"], ["updated_at", "2017-10-21 03:54:19.798672"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 5], ["user_id", 3], ["numerical_review", 8], ["content", "[\"id\", \"unde\", \"neque\", \"laboriosam\", \"odit\"]"], ["created_at", "2017-10-21 03:54:19.803624"], ["updated_at", "2017-10-21 03:54:19.803624"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 14], ["user_id", 4], ["numerical_review", 0], ["content", "[\"doloremque\", \"autem\", \"et\", \"sit\", \"accusantium\"]"], ["created_at", "2017-10-21 03:54:19.807940"], ["updated_at", "2017-10-21 03:54:19.807940"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.3ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 12], ["user_id", 1], ["numerical_review", 4], ["content", "[\"est\", \"nesciunt\", \"quia\", \"ad\", \"et\"]"], ["created_at", "2017-10-21 03:54:19.812480"], ["updated_at", "2017-10-21 03:54:19.812480"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 11], ["user_id", 5], ["numerical_review", 9], ["content", "[\"et\", \"eum\", \"quae\", \"alias\", \"et\"]"], ["created_at", "2017-10-21 03:54:19.816870"], ["updated_at", "2017-10-21 03:54:19.816870"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 14], ["user_id", 1], ["numerical_review", 2], ["content", "[\"velit\", \"esse\", \"architecto\", \"nihil\", \"vero\"]"], ["created_at", "2017-10-21 03:54:19.821630"], ["updated_at", "2017-10-21 03:54:19.821630"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 5], ["user_id", 1], ["numerical_review", 3], ["content", "[\"veritatis\", \"minima\", \"adipisci\", \"pariatur\", \"error\"]"], ["created_at", "2017-10-21 03:54:19.826355"], ["updated_at", "2017-10-21 03:54:19.826355"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 12], ["user_id", 5], ["numerical_review", 8], ["content", "[\"natus\", \"libero\", \"corrupti\", \"quaerat\", \"aut\"]"], ["created_at", "2017-10-21 03:54:19.831057"], ["updated_at", "2017-10-21 03:54:19.831057"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 5], ["numerical_review", 6], ["content", "[\"iure\", \"natus\", \"nulla\", \"voluptatem\", \"sed\"]"], ["created_at", "2017-10-21 03:54:19.835185"], ["updated_at", "2017-10-21 03:54:19.835185"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 2], ["numerical_review", 4], ["content", "[\"vel\", \"cum\", \"suscipit\", \"aliquam\", \"animi\"]"], ["created_at", "2017-10-21 03:54:19.839125"], ["updated_at", "2017-10-21 03:54:19.839125"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.3ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 3], ["numerical_review", 7], ["content", "[\"libero\", \"voluptates\", \"commodi\", \"deserunt\", \"est\"]"], ["created_at", "2017-10-21 03:54:19.843559"], ["updated_at", "2017-10-21 03:54:19.843559"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 7], ["user_id", 5], ["numerical_review", 6], ["content", "[\"ea\", \"tempora\", \"mollitia\", \"voluptas\", \"et\"]"], ["created_at", "2017-10-21 03:54:19.847561"], ["updated_at", "2017-10-21 03:54:19.847561"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 5], ["numerical_review", 0], ["content", "[\"dolor\", \"eligendi\", \"soluta\", \"laudantium\", \"sed\"]"], ["created_at", "2017-10-21 03:54:19.851779"], ["updated_at", "2017-10-21 03:54:19.851779"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 18], ["user_id", 1], ["numerical_review", 5], ["content", "[\"est\", \"autem\", \"rerum\", \"aut\", \"et\"]"], ["created_at", "2017-10-21 03:54:19.856529"], ["updated_at", "2017-10-21 03:54:19.856529"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 9], ["user_id", 1], ["numerical_review", 3], ["content", "[\"eum\", \"perspiciatis\", \"expedita\", \"consequatur\", \"facere\"]"], ["created_at", "2017-10-21 03:54:19.860885"], ["updated_at", "2017-10-21 03:54:19.860885"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 13], ["user_id", 1], ["numerical_review", 3], ["content", "[\"nihil\", \"sed\", \"et\", \"eum\", \"velit\"]"], ["created_at", "2017-10-21 03:54:19.865141"], ["updated_at", "2017-10-21 03:54:19.865141"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 4], ["numerical_review", 0], ["content", "[\"ex\", \"iste\", \"rerum\", \"nesciunt\", \"voluptatibus\"]"], ["created_at", "2017-10-21 03:54:19.869052"], ["updated_at", "2017-10-21 03:54:19.869052"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 5], ["numerical_review", 6], ["content", "[\"deleniti\", \"quaerat\", \"deserunt\", \"nostrum\", \"eligendi\"]"], ["created_at", "2017-10-21 03:54:19.873043"], ["updated_at", "2017-10-21 03:54:19.873043"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 5], ["user_id", 5], ["numerical_review", 6], ["content", "[\"rerum\", \"dignissimos\", \"dolore\", \"commodi\", \"aliquid\"]"], ["created_at", "2017-10-21 03:54:19.876895"], ["updated_at", "2017-10-21 03:54:19.876895"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 5], ["numerical_review", 8], ["content", "[\"sed\", \"beatae\", \"ducimus\", \"non\", \"rerum\"]"], ["created_at", "2017-10-21 03:54:19.880585"], ["updated_at", "2017-10-21 03:54:19.880585"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 7], ["user_id", 4], ["numerical_review", 9], ["content", "[\"porro\", \"sed\", \"aliquid\", \"voluptate\", \"tenetur\"]"], ["created_at", "2017-10-21 03:54:19.884681"], ["updated_at", "2017-10-21 03:54:19.884681"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 7], ["user_id", 2], ["numerical_review", 9], ["content", "[\"pariatur\", \"labore\", \"sit\", \"quo\", \"veniam\"]"], ["created_at", "2017-10-21 03:54:19.888499"], ["updated_at", "2017-10-21 03:54:19.888499"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 5], ["user_id", 3], ["numerical_review", 6], ["content", "[\"deserunt\", \"facere\", \"totam\", \"praesentium\", \"rerum\"]"], ["created_at", "2017-10-21 03:54:19.892473"], ["updated_at", "2017-10-21 03:54:19.892473"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 4], ["numerical_review", 1], ["content", "[\"fugit\", \"voluptatibus\", \"autem\", \"officiis\", \"laudantium\"]"], ["created_at", "2017-10-21 03:54:19.896790"], ["updated_at", "2017-10-21 03:54:19.896790"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 3], ["numerical_review", 6], ["content", "[\"magni\", \"aperiam\", \"id\", \"perferendis\", \"laborum\"]"], ["created_at", "2017-10-21 03:54:19.900821"], ["updated_at", "2017-10-21 03:54:19.900821"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 18], ["user_id", 1], ["numerical_review", 9], ["content", "[\"ut\", \"eveniet\", \"quisquam\", \"omnis\", \"in\"]"], ["created_at", "2017-10-21 03:54:19.904629"], ["updated_at", "2017-10-21 03:54:19.904629"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 5], ["numerical_review", 1], ["content", "[\"consequuntur\", \"inventore\", \"sunt\", \"quia\", \"reiciendis\"]"], ["created_at", "2017-10-21 03:54:19.908475"], ["updated_at", "2017-10-21 03:54:19.908475"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 17], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 17], ["user_id", 1], ["numerical_review", 2], ["content", "[\"nihil\", \"blanditiis\", \"amet\", \"molestiae\", \"sint\"]"], ["created_at", "2017-10-21 03:54:19.912113"], ["updated_at", "2017-10-21 03:54:19.912113"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 10], ["user_id", 3], ["numerical_review", 3], ["content", "[\"debitis\", \"laboriosam\", \"labore\", \"suscipit\", \"molestiae\"]"], ["created_at", "2017-10-21 03:54:19.916085"], ["updated_at", "2017-10-21 03:54:19.916085"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 4], ["user_id", 4], ["numerical_review", 2], ["content", "[\"possimus\", \"pariatur\", \"cum\", \"omnis\", \"quisquam\"]"], ["created_at", "2017-10-21 03:54:19.920011"], ["updated_at", "2017-10-21 03:54:19.920011"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 3], ["numerical_review", 8], ["content", "[\"quidem\", \"ea\", \"ullam\", \"occaecati\", \"sed\"]"], ["created_at", "2017-10-21 03:54:19.924161"], ["updated_at", "2017-10-21 03:54:19.924161"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 13], ["user_id", 2], ["numerical_review", 2], ["content", "[\"qui\", \"sint\", \"deleniti\", \"autem\", \"nihil\"]"], ["created_at", "2017-10-21 03:54:19.928207"], ["updated_at", "2017-10-21 03:54:19.928207"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 17], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 17], ["user_id", 5], ["numerical_review", 9], ["content", "[\"aut\", \"quo\", \"et\", \"laboriosam\", \"voluptatem\"]"], ["created_at", "2017-10-21 03:54:19.931954"], ["updated_at", "2017-10-21 03:54:19.931954"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 2], ["user_id", 5], ["numerical_review", 0], ["content", "[\"repellendus\", \"quas\", \"unde\", \"fugit\", \"et\"]"], ["created_at", "2017-10-21 03:54:19.935969"], ["updated_at", "2017-10-21 03:54:19.935969"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 8], ["user_id", 2], ["numerical_review", 8], ["content", "[\"sit\", \"modi\", \"vero\", \"error\", \"et\"]"], ["created_at", "2017-10-21 03:54:19.939941"], ["updated_at", "2017-10-21 03:54:19.939941"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 9], ["user_id", 2], ["numerical_review", 0], ["content", "[\"aperiam\", \"dolores\", \"sint\", \"alias\", \"sapiente\"]"], ["created_at", "2017-10-21 03:54:19.943879"], ["updated_at", "2017-10-21 03:54:19.943879"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 3], ["numerical_review", 9], ["content", "[\"necessitatibus\", \"dignissimos\", \"voluptatem\", \"numquam\", \"quae\"]"], ["created_at", "2017-10-21 03:54:19.947665"], ["updated_at", "2017-10-21 03:54:19.947665"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 7], ["user_id", 1], ["numerical_review", 0], ["content", "[\"est\", \"recusandae\", \"ut\", \"dolore\", \"tenetur\"]"], ["created_at", "2017-10-21 03:54:19.956115"], ["updated_at", "2017-10-21 03:54:19.956115"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 14], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 14], ["user_id", 3], ["numerical_review", 7], ["content", "[\"laborum\", \"quaerat\", \"et\", \"dolores\", \"dolore\"]"], ["created_at", "2017-10-21 03:54:19.961359"], ["updated_at", "2017-10-21 03:54:19.961359"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.4ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 11], ["user_id", 3], ["numerical_review", 0], ["content", "[\"voluptates\", \"quod\", \"quam\", \"alias\", \"optio\"]"], ["created_at", "2017-10-21 03:54:19.966610"], ["updated_at", "2017-10-21 03:54:19.966610"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 9], ["user_id", 2], ["numerical_review", 8], ["content", "[\"ipsam\", \"nulla\", \"a\", \"est\", \"mollitia\"]"], ["created_at", "2017-10-21 03:54:19.971829"], ["updated_at", "2017-10-21 03:54:19.971829"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 6], ["user_id", 3], ["numerical_review", 8], ["content", "[\"commodi\", \"quia\", \"molestias\", \"voluptatibus\", \"similique\"]"], ["created_at", "2017-10-21 03:54:19.976782"], ["updated_at", "2017-10-21 03:54:19.976782"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 5], ["user_id", 1], ["numerical_review", 2], ["content", "[\"nostrum\", \"consequatur\", \"necessitatibus\", \"iusto\", \"porro\"]"], ["created_at", "2017-10-21 03:54:19.981932"], ["updated_at", "2017-10-21 03:54:19.981932"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 3], ["user_id", 1], ["numerical_review", 9], ["content", "[\"eos\", \"quo\", \"eaque\", \"hic\", \"repellat\"]"], ["created_at", "2017-10-21 03:54:19.986655"], ["updated_at", "2017-10-21 03:54:19.986655"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 2], ["user_id", 3], ["numerical_review", 9], ["content", "[\"iusto\", \"et\", \"tempore\", \"ea\", \"quam\"]"], ["created_at", "2017-10-21 03:54:19.991626"], ["updated_at", "2017-10-21 03:54:19.991626"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 18], ["user_id", 3], ["numerical_review", 3], ["content", "[\"laboriosam\", \"voluptatum\", \"iusto\", \"maxime\", \"sit\"]"], ["created_at", "2017-10-21 03:54:19.996458"], ["updated_at", "2017-10-21 03:54:19.996458"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 5], ["numerical_review", 4], ["content", "[\"numquam\", \"sequi\", \"dolor\", \"molestiae\", \"velit\"]"], ["created_at", "2017-10-21 03:54:20.001250"], ["updated_at", "2017-10-21 03:54:20.001250"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 3], ["numerical_review", 4], ["content", "[\"autem\", \"nesciunt\", \"sint\", \"ea\", \"sit\"]"], ["created_at", "2017-10-21 03:54:20.006635"], ["updated_at", "2017-10-21 03:54:20.006635"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 10], ["user_id", 3], ["numerical_review", 4], ["content", "[\"necessitatibus\", \"doloremque\", \"quia\", \"animi\", \"similique\"]"], ["created_at", "2017-10-21 03:54:20.011703"], ["updated_at", "2017-10-21 03:54:20.011703"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 9], ["user_id", 2], ["numerical_review", 2], ["content", "[\"aut\", \"repellendus\", \"consectetur\", \"nemo\", \"deleniti\"]"], ["created_at", "2017-10-21 03:54:20.016801"], ["updated_at", "2017-10-21 03:54:20.016801"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 13], ["user_id", 4], ["numerical_review", 7], ["content", "[\"quia\", \"recusandae\", \"ab\", \"error\", \"eveniet\"]"], ["created_at", "2017-10-21 03:54:20.021666"], ["updated_at", "2017-10-21 03:54:20.021666"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 1], ["numerical_review", 7], ["content", "[\"porro\", \"nemo\", \"adipisci\", \"libero\", \"sint\"]"], ["created_at", "2017-10-21 03:54:20.026326"], ["updated_at", "2017-10-21 03:54:20.026326"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 16], ["user_id", 1], ["numerical_review", 8], ["content", "[\"maxime\", \"tenetur\", \"et\", \"nostrum\", \"aliquid\"]"], ["created_at", "2017-10-21 03:54:20.031047"], ["updated_at", "2017-10-21 03:54:20.031047"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 10], ["user_id", 4], ["numerical_review", 9], ["content", "[\"sunt\", \"qui\", \"magni\", \"nihil\", \"qui\"]"], ["created_at", "2017-10-21 03:54:20.036437"], ["updated_at", "2017-10-21 03:54:20.036437"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 5], ["user_id", 4], ["numerical_review", 6], ["content", "[\"dolores\", \"repudiandae\", \"est\", \"deleniti\", \"dolorem\"]"], ["created_at", "2017-10-21 03:54:20.040298"], ["updated_at", "2017-10-21 03:54:20.040298"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 15], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 15], ["user_id", 1], ["numerical_review", 8], ["content", "[\"beatae\", \"est\", \"repellendus\", \"magnam\", \"tenetur\"]"], ["created_at", "2017-10-21 03:54:20.044619"], ["updated_at", "2017-10-21 03:54:20.044619"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 3], ["numerical_review", 5], ["content", "[\"sed\", \"sit\", \"quo\", \"nulla\", \"numquam\"]"], ["created_at", "2017-10-21 03:54:20.048892"], ["updated_at", "2017-10-21 03:54:20.048892"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 6], ["user_id", 1], ["numerical_review", 0], ["content", "[\"facilis\", \"atque\", \"magni\", \"distinctio\", \"ut\"]"], ["created_at", "2017-10-21 03:54:20.053491"], ["updated_at", "2017-10-21 03:54:20.053491"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 2], ["user_id", 5], ["numerical_review", 7], ["content", "[\"ut\", \"esse\", \"omnis\", \"beatae\", \"fugiat\"]"], ["created_at", "2017-10-21 03:54:20.058384"], ["updated_at", "2017-10-21 03:54:20.058384"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 3], ["numerical_review", 6], ["content", "[\"doloribus\", \"perferendis\", \"rerum\", \"omnis\", \"ut\"]"], ["created_at", "2017-10-21 03:54:20.062918"], ["updated_at", "2017-10-21 03:54:20.062918"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 18], ["user_id", 2], ["numerical_review", 6], ["content", "[\"sequi\", \"enim\", \"placeat\", \"sit\", \"dolor\"]"], ["created_at", "2017-10-21 03:54:20.067038"], ["updated_at", "2017-10-21 03:54:20.067038"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 7], ["user_id", 1], ["numerical_review", 3], ["content", "[\"qui\", \"rerum\", \"dicta\", \"rem\", \"id\"]"], ["created_at", "2017-10-21 03:54:20.070941"], ["updated_at", "2017-10-21 03:54:20.070941"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 3], ["numerical_review", 4], ["content", "[\"qui\", \"ab\", \"in\", \"sequi\", \"omnis\"]"], ["created_at", "2017-10-21 03:54:20.075138"], ["updated_at", "2017-10-21 03:54:20.075138"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 6], ["user_id", 4], ["numerical_review", 2], ["content", "[\"ipsum\", \"beatae\", \"molestiae\", \"magni\", \"rerum\"]"], ["created_at", "2017-10-21 03:54:20.079102"], ["updated_at", "2017-10-21 03:54:20.079102"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mRestaurant Load (0.2ms)[0m  [1m[34mSELECT "restaurants".* FROM "restaurants"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mRestaurant Load (0.1ms)[0m  [1m[34mSELECT  "restaurants".* FROM "restaurants" WHERE "restaurants"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("restaurant_id", "user_id", "numerical_review", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["restaurant_id", 20], ["user_id", 5], ["numerical_review", 6], ["content", "[\"earum\", \"praesentium\", \"occaecati\", \"non\", \"ipsum\"]"], ["created_at", "2017-10-21 03:54:20.083323"], ["updated_at", "2017-10-21 03:54:20.083323"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2017-10-21 00:21:03 -0400
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by StaticController#index as HTML
+  Rendering static/index.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  Rendered static/index.html.erb within layouts/application (14.1ms)
+Completed 200 OK in 235ms (Views: 223.1ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/users" for ::1 at 2017-10-21 00:21:10 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/users"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.1) lib/rack/cors.rb:93:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started POST "/users" for ::1 at 2017-10-21 00:22:37 -0400
+Processing by UsersController#create as JSON
+  Parameters: {"user"=>{"username"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "errors"=>[], "showProgress"=>false}}
+Unpermitted parameters: :errors, :showProgress
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 435ms (Views: 0.2ms | ActiveRecord: 2.9ms)
+
+
+Started POST "/users" for ::1 at 2017-10-21 00:24:05 -0400
+Processing by UsersController#create as JSON
+  Parameters: {"user"=>{"username"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "errors"=>[], "showProgress"=>false}}
+Unpermitted parameters: :errors, :showProgress
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (209.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "DBCEatAndReview_development"[0m
+  [1m[35m (202.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "DBCEatAndReview_test"[0m
+  [1m[35m (452.7ms)[0m  [1m[35mCREATE DATABASE "DBCEatAndReview_development" ENCODING = 'unicode'[0m
+  [1m[35m (457.9ms)[0m  [1m[35mCREATE DATABASE "DBCEatAndReview_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "restaurants" CASCADE[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "restaurants" ("id" bigserial primary key, "name" character varying, "cuisine" character varying, "address" character varying, "city" character varying, "state" character varying, "zip" integer, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "reviews" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "restaurant_id" integer, "user_id" bigint, "numerical_review" integer NOT NULL, "content" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "email" character varying, "admin" boolean DEFAULT 'f', "password_digest" character varying, "remember_digest" character varying, "access_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_access_token" ON "users"  ("access_token")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (3.0ms)[0m  [1m[35mALTER TABLE "reviews" ADD CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171020182829)[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171020182617),
+(20171020182422);
+
+[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-21 04:29:35.693815"], ["updated_at", "2017-10-21 04:29:35.693815"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "restaurants" CASCADE[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "restaurants" ("id" bigserial primary key, "name" character varying, "cuisine" character varying, "address" character varying, "city" character varying, "state" character varying, "zip" integer, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "reviews" CASCADE[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "restaurant_id" integer, "user_id" bigint, "numerical_review" integer NOT NULL, "content" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE  INDEX  "index_reviews_on_user_id" ON "reviews"  ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "email" character varying, "admin" boolean DEFAULT 'f', "password_digest" character varying, "remember_digest" character varying, "access_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_access_token" ON "users"  ("access_token")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (3.5ms)[0m  [1m[35mALTER TABLE "reviews" ADD CONSTRAINT "fk_rails_74a66bd6c5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171020182829)[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171020182617),
+(20171020182422);
+
+[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-10-21 04:29:35.773218"], ["updated_at", "2017-10-21 04:29:35.773218"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "restaurants"[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "users"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "reviews"[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "restaurants"[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "users"[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "reviews"[0m
+Started POST "/users" for ::1 at 2017-10-21 00:30:13 -0400
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as JSON
+  Parameters: {"user"=>{"username"=>"", "email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "errors"=>[], "showProgress"=>false}}
+Unpermitted parameters: :errors, :showProgress
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", ""], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 409ms (Views: 0.3ms | ActiveRecord: 5.6ms)
+
+
