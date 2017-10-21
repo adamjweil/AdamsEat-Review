@@ -30,12 +30,9 @@ class UsersController < ApplicationController
       if @user.save
         # format.html { redirect_to @user, notice: 'User was successfully created.' }
         # format.json { render :show, status: :created, location: @user }
-        session[:user_id] = @user.id
-        redirect_to "/restaurants"
+        render plain: @user.access_token, status: 201
       else
-        # format.html { render :new }
-        # format.json { render json: @user.errors, status: :unprocessable_entity }
-        "errors"
+        render json: @user.errors, status: 422
       end
     # end
   end
@@ -67,11 +64,11 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(access_token: params[:access_token])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :email, :password)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
 end
