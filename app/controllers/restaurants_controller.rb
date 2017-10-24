@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :set_restaurant, 
+  only: [:show, :edit, :update, :destroy]
 
   # GET /restaurants
   # GET /restaurants.json
@@ -26,8 +27,8 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     # create_restaurant
-    @restaurant = Restaurant.new(restaurant_params)
-      if @user.save
+    @restaurant = Restaurant.new(params[:name], params[:cuisine], params[:address], params[:city], params[:state], params[:zip])
+      if @restaurant.save
         render plain: "Success", status: 201
       else
         render plain: "failure", status: 422
@@ -67,6 +68,6 @@ class RestaurantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:name, :cuisine, :address, :city, :state, :zip, :user_id)
+      params.require(:restaurant).permit(:name, :cuisine, :address, :city, :state, :zip)
     end
 end

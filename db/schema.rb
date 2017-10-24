@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20171020182829) do
     t.string "city"
     t.string "state"
     t.integer "zip"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -43,12 +42,9 @@ ActiveRecord::Schema.define(version: 20171020182829) do
     t.boolean "admin", default: false
     t.string "password_digest"
     t.string "remember_digest"
-    t.string "access_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["access_token"], name: "index_users_on_access_token"
     t.index ["email"], name: "index_users_on_email"
   end
 
-  add_foreign_key "reviews", "users"
 end
