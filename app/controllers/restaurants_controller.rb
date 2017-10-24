@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, 
+  before_action :set_restaurant,
   only: [:show, :edit, :update, :destroy]
 
   # GET /restaurants
@@ -27,7 +27,7 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     # create_restaurant
-    @restaurant = Restaurant.new(params[:name], params[:cuisine], params[:address], params[:city], params[:state], params[:zip])
+    @restaurant = Restaurant.new(restaurant_params)
       if @restaurant.save
         render plain: "Success", status: 201
       else
