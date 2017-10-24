@@ -7,7 +7,7 @@ class CreateRestaurants < ActiveRecord::Migration[5.1]
       t.string :city, NULL: false
       t.string :state, NULL: false
       t.integer :zip, NULL: false
-      t.integer :user_id, foreign_key: true, NULL: false
+      t.integer :user_id
 
       t.timestamps(NULL: false)
     end
