@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :reset_token
   before_save :downcase_email
-  before_create :generate_access_token
+  # before_create :generate_access_token
 
   validates :username, :email, :password_digest, presence: true
   validates :email, uniqueness: true
@@ -50,10 +50,10 @@ class User < ApplicationRecord
     self.email = email.downcase
   end
 
-  def generate_access_token
-    begin
-      self.access_token = User.new_token
-    end while self.class.exists?(access_token: access_token)
-  end
+  # def generate_access_token
+  #   begin
+  #     self.access_token = User.new_token
+  #   end while self.class.exists?(access_token: access_token)
+  # end
 
 end
