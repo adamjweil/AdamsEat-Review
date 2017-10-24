@@ -25,7 +25,13 @@ class RestaurantsController < ApplicationController
   # POST /restaurants
   # POST /restaurants.json
   def create
-    create_restaurant
+    # create_restaurant
+    @restaurant = Restaurant.new(restaurant_params)
+      if @user.save
+        render plain: "Success", status: 201
+      else
+        render plain: "failure", status: 422
+      end
   end
 
   # PATCH/PUT /restaurants/1
