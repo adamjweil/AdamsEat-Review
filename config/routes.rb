@@ -18,5 +18,5 @@ Rails.application.routes.draw do
   post '/restaurants/:id/reviews' => 'restaurants#review'
   get '/restaurants/:id/delete' => 'restaurants#destroy'
   put 'restaurants/:id' => 'restaurants#update'
-  root to: 'static#index'
+  root to: 'restaurants#index'
 end
