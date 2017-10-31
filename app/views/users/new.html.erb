@@ -1,20 +1,19 @@
-<div id="nav">
-<nav>
-  <ul>
-<%current_user%>
-    <% if logged_in? %>
-    <li><a href='/logout'>Log out</a></li>
-    <li><a href='/restaurants/new'>Post A Restaurant</a></li>
-    <li ><a href='/restaurants'>Restaurants</a></li>
-    <li><a href='/users/show'>Hello, <%= current_user.username %></a></li>
-    <% else %>
-    <li><a href='/sessions/new'>Log in</a></li>
-    <li><a href='/users/new'>Register</a></li>
-    <li ><a href='/restaurants'>Homepage</a></li>
-    <% end %>
-  </ul>
-</nav>
-</div>
+<header>
+  <nav>
+    <span class="movetext">Adam's Eat & Revew</span>
+  <img class="" src="https://www.matchbook.com/assets/images/icons/white/Twitter_logo_white.png">
+      <% current_user %>
+        <% if logged_in? %>
+          <a href='/restaurants/new'>Post A Restaurant</a>
+          <a href='/restaurants' class"active">Restaurants</a>
+          <a href='/logout'>Log out</a>
+        <% else %>
+          <a href='/users/new'>Register</a>
+          <a href='/restaurants'>Homepage</a>
+      <% end %>
+  </nav>
+</header>
+
 <html>
 <head>
 <title>Phase 2 Assessment</title>
@@ -31,7 +30,6 @@
 </style>
 </head>
 <body>
-<!-- ${param.errorMsg} -->
 	<form action="/users" method="post">
 		<fieldset><legend>Register</legend>
       <label for="last_name">Username: </label>

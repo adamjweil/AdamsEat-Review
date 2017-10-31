@@ -5,7 +5,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants.json
   def index
     @restaurants = Restaurant.all
-    render json: @restaurants
+    # render json: @restaurants
   end
 
   # GET /restaurants/1
@@ -26,9 +26,12 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     # create_restaurant
+    find_user
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user_id = @user.id
       if @restaurant.save
-        render plain: "Success", status: 201
+        redirect_to "/restaurants"
+        # render plain: "Success", status: 201
       else
         render plain: "failure", status: 422
       end
@@ -43,7 +46,7 @@ class RestaurantsController < ApplicationController
   def review
     @restaurant = Restaurant.find_by(id: params[:id])
     create_review
-    redirect_to "/restaurants/#{@restaurant.id}"
+    # redirect_to "/restaurants/#{@restaurant.id}"
   end
 
   # DELETE /restaurants/1

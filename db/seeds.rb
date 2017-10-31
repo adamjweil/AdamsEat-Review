@@ -16,10 +16,10 @@ end
 20.times do
   Restaurant.create(name: Faker::Lorem.sentence(1), cuisine: Faker::Lorem.words(1), city: Faker::Address.city,
   address: Faker::Address.street_address, state: Faker::Address.state_abbr,
-  zip: Faker::Address.zip)
+  zip: Faker::Address.zip, user_id: User.all.sample.id)
 end
 
-# 100.times do
-#   Review.create(restaurant_id: Restaurant.all.sample.id,
-#   numerical_review: rand(10), content: Faker::Lorem.words(5))
-# end
+100.times do
+  Review.create(restaurant_id: Restaurant.all.sample.id,
+  numerical_review: rand(10), content: Faker::Lorem.words(5), user_id: User.all.sample.id)
+end

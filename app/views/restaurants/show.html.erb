@@ -1,40 +1,36 @@
-<div id="nav">
-<nav>
-  <ul>
-<%current_user%>
-    <% if logged_in? %>
-    <li><a href='/logout'>Log out</a></li>
-    <li><a href='/restaurants/new'>Post A Restaurant</a></li>
-    <li ><a href='/restaurants'>Restaurants</a></li>
-    <li><a href='/users/show'>Hello, <%= current_user.username %></a></li>
-    <% else %>
-    <li><a href='/sessions/new'>Log in</a></li>
-    <li><a href='/users/new'>Register</a></li>
-    <li ><a href='/restaurants'>Homepage</a></li>
-    <% end %>
-  </ul>
-</nav>
-</div>
-<% find_user %>
+<header>
+  <nav>
+    <span class="movetext">Adam's Eat & Revew</span>
+  <img class="" src="https://www.matchbook.com/assets/images/icons/white/Twitter_logo_white.png">
+      <% current_user %>
+        <% if logged_in? %>
+          <a href='/restaurants/new'>Post A Restaurant</a>
+          <a href='/restaurants' class"active">Restaurants</a>
+          <a href='/logout'>Log out</a>
+        <% else %>
+          <a href='/users/new'>Register</a>
+          <a href='/restaurants'>Homepage</a>
+      <% end %>
+  </nav>
+</header>
 
-<br>
-<h1 style="text-decoration: underline;">Adam's Eat & Review</h1>
-    <br><br><br><br>
-
-<div id="restaurant-details">
-  <h4><%= @restaurant.name %></h4>
-    <span>Cuisine: <%= @restaurant.cuisine %></span><br>
-    <span>Address: <%= @restaurant.address%> </span><br>
-    <span>City: <%= @restaurant.city %>,   State: <%= @restaurant.state %>,   Zip: <%= @restaurant.zip %> </span>
+<div id="main-container">
+  <% find_user %>
+  <br><br>
+  <div id="restaurant-details">
+    <h4><%= @restaurant.name %></h4>
+      <span>Cuisine: <%= @restaurant.cuisine %></span><br>
+      <span>Address: <%= @restaurant.address%> </span><br>
+      <span>City: <%= @restaurant.city %>,   State: <%= @restaurant.state %>,   Zip: <%= @restaurant.zip %> </span>
   </div>
 
   <h3>Reviews<h5>(Count: <%= @restaurant.reviews.count %> | Avg Score: <%= @restaurant.average_review %> )  </h5></h3>
   <div id="reviews">
-  <% @restaurant.reviews.each do |review| %>
-    <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
-    <h6> - <%= review.user.username %><br></h6>
-    <% end %>
-</div>
+    <% @restaurant.reviews.each do |review| %>
+        <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
+        <h6> - <%= review.user.username %><br></h6>
+      <% end %>
+  </div>
 
 
   <div id="review">
@@ -65,3 +61,4 @@
         <% end %>
     </form>
   </div>
+</div>

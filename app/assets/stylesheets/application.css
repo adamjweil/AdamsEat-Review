@@ -13,100 +13,329 @@
  *= require_tree .
  *= require_self
  */
- ul {
-   /*list-style-type: none;*/
-   margin: 0px;
-   padding: 0px;
-   overflow: hidden;
-   background-color: #333;
- }
-
- li {
-     float: right;
- }
-
- li a {
-     display: block;
-     color: white;
-     text-align: center;
-     padding: 14px 16px;
-     text-decoration: none;
- }
-
- .login form {
-     background-color: F8F8F8;
-     width: 30%;
-     border: 3px solid #f1f1f1;
-     margin-top: 20px;
-     margin-left: 100px;
-     margin-bottom: 50px;
-     padding-bottom: 10px;
-     padding-left: 10px;
-     padding-top: 10px;
- }
-
- #login form input[type=username], input[type=password_digest] {
-     width: 75%;
-     margin: 8px 0;
-     display: block;
-     border: 1px solid #ccc;
-     box-sizing: border-box;
- }
-
- #login form input[type=submit] {
-   background-color: #008CBA;
-   color: white;
-   padding: 5px 5px;
-   margin: 8px 0;
-   border: none;
-   cursor: pointer;
-   width: 25%;
-   border: 3px solid #f1f1f1;
-   opacity: .5;
- }
-
- #login form input[type=submit]:hover {
-   opacity: 0.8;
- }
- .button {
-   font: bold 11px Arial;
-   text-decoration: none;
-   background-color: #EEEEEE;
-   color: #333333;
-   padding: 2px 6px 2px 6px;
-   border-top: 1px solid #CCCCCC;
-   border-right: 1px solid #333333;
-   border-bottom: 1px solid #333333;
-   border-left: 1px solid #CCCCCC;
- }
- #squares {
-   display: block;
-   float: left;
-   width:150px;
-   height:150px;
-   border-style: solid;
-   border-radius: 10px;
-   border-width: 2px;
-   margin-left: 40px;
-   margin-top: 50px;
-   margin-right: 40px;
- }
- #restaurant-details {
+ #main-container {
+   width: 1200px;
+   height: 2000px;
+   /*height: 100%;*/
    margin-left: 50px;
-   margin-right: 50px;
-   border-width: 3px;
-   border-style: solid;
-   border-radius: 10px;
- }
- #review {
-   margin-left: 150px;
-   margin-right: 550px;
-   margin-top: 50px;
-   border-style: solid;
-   border-radius: 10px;
-   border-width: 1px;
- }
- #reviews {
-   margin-left: 30px;
+   /*display: block;*/
+   margin-top:75px;
+   /*background-color: #b2dfdb;*/
+   background-color: hsla(120, 100%, 75%, 0.3);
+}
+header {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+}
+ body {
+  margin: 0;
+  padding: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 20px;
+}
 
- }
+header nav {
+  text-align: right;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  border-radius: 10px;
+  font-size: 1em;
+  position: fixed;
+  width: 1200px;
+}
+header nav a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  padding: 2em 1em .5em;
+  -webkit-transition: all .3s ease-in;
+}
+header nav a:hover {
+  text-decoration: underline;
+  color: #FFFAF0;
+  background: #777;
+}
+header nav ul {
+  list-style-type: none;
+}
+header nav li {
+  font-size: 15px;
+}
+
+header nav a.active {
+  background: rgba(255,255,255,0.3);
+}
+.button {
+  text-align: center;
+  border: 1px;
+  border-style: solid;
+  border-color: green;
+}
+.button a {
+  display: inline-block;
+  border: 2px solid #777;
+  padding: .75em 1.5em;
+  color: #777;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 5px;
+  letter-spacing: .15em;
+  word-spacing: .25em;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+.button a:hover {
+  color: #FFFAF0;
+  background: #777;
+}
+nav img {
+  z-index: 1000;
+  height: 2.5em;
+  position: absolute;
+  left: 40px;
+  top: 10px;
+  transition: all 0.5s linear;
+}
+nav span {
+  position: relative;
+  left: 40px;
+  top: 10px;
+  font-weight: bold;
+  transition: all 0.5s ease-in;
+}
+.movetext {
+  top: -30px;
+}
+#main-title {
+  width: 60%;
+  float: left;
+  height: 180px;
+}
+#main-title h2 {
+  font-size: 30px;
+  color: rgba(0,0,0,0.8);
+  align-items: center;
+  text-align: center;
+}
+.user-summary {
+  width: 35%;
+  height: 170px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  background: #eceeee;
+  border: 1px solid #42464b;
+  border-radius: 6px;
+}
+#user-details {
+  width: 50%;
+  float: left;
+  padding: 5px;
+}
+#user-details h6, p {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  /*text-align: center;*/
+}
+#user-details p {
+  text-align: center;
+}
+#user-details h5 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+#user-posted-restaurants {
+  width: 50%;
+  float: left;
+  padding: 5px;
+}
+#user-posted-restaurants h5 {
+  font-size: 15px;
+  text-align: left;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+#user-posted-restaurants a, p {
+ font-size: 10px;
+ text-align: left;
+ margin-left: 5px;
+}
+#user-posted-reviews {
+  margin-top: -60px;
+  width: 45%;
+  float: right;
+
+}
+#user-posted-reviews h5 {
+  text-align: left;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+#user-posted-reviews p {
+  margin-left: 5px;
+}
+#login {
+  width: 35%;
+  margin-right: 10px;
+  margin-top: 10px;
+  height: 130px;
+  float: right;
+  border: 3px solid #f1f1f1;
+  border-radius: 10px;
+  background-color: #F8F8F8;
+}
+html { height: 100% }
+::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+body { background-image: radial-gradient( cover, rgba(92,100,111,1) 0%,rgba(31,35,40,1) 100%), url('http://i.minus.com/io97fW9I0NqJq.png') }
+.login {
+  background: #eceeee;
+  border: 1px solid #42464b;
+  border-radius: 6px;
+  height: 170px;
+  float: right;
+  padding-right: 10px;
+  margin-top: 20px;
+  margin-right: 20px;
+  width: 35%;
+}
+.login h1 {
+  background-image: linear-gradient(top, #f1f3f3, #d4dae0);
+  border-bottom: 1px solid #a6abaf;
+  border-radius: 6px 6px 0 0;
+  box-sizing: border-box;
+  color: #727678;
+  display: block;
+  height: 43px;
+  font: 600 14px/1 'Open Sans', sans-serif;
+  padding-top: 14px;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.2), 0 1px 0 #fff;
+}
+input[type="password"], input[type="text"] {
+  background: url('http://i.minus.com/ibhqW9Buanohx2.png') center left no-repeat, linear-gradient(top, #d6d7d7, #dee0e0);
+  border: 1px solid #a1a3a3;
+  border-radius: 4px;
+  box-shadow: 0 1px #fff;
+  box-sizing: border-box;
+  color: #696969;
+  height: 39px;
+  margin: 15px 0 0 29px;
+  padding-left: 37px;
+  transition: box-shadow 0.3s;
+  width: 240px;
+}
+input[type="password"]:focus, input[type="text"]:focus {
+  box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.3);
+  outline: 0;
+}
+.forgot:hover { color: #3b3b3b }
+input[type="submit"] {
+  width:240px;
+  height:35px;
+  display:block;
+  font-family:Arial, "Helvetica", sans-serif;
+  font-size:16px;
+  font-weight:bold;
+  color:#fff;
+  text-decoration:none;
+  text-transform:uppercase;
+  text-align:center;
+  text-shadow:1px 1px 0px #37a69b;
+  padding-top:6px;
+  margin-top: 10px;
+  margin-left: 31px;
+  position:relative;
+  cursor:pointer;
+  border: none;
+  background-color: #37a69b;
+  background-image: linear-gradient(top,#3db0a6,#3111);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius:5px;
+  box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #497a78, 0px 10px 5px #999;
+}
+
+.shadow {
+  background: #000;
+  border-radius: 12px 12px 4px 4px;
+  box-shadow: 0 0 20px 10px #000;
+  height: 12px;
+  margin: 30px auto;
+  opacity: 0.2;
+  width: 270px;
+}
+input[type="submit"]:active {
+  top:3px;
+  box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #31524d, 0px 5px 3px #999;
+}
+#post-rest-button {
+  text-align: center;
+}
+#post-rest-button a  {
+  height: 550px;
+}
+a .button {
+  height: 200px;
+}
+#post-rest-button a:hover {
+  background-color: black;
+}
+.button {
+ font: bold 11px Arial;
+ text-decoration: none;
+ background-color: #EEEEEE;
+ color: #333333;
+ padding: 2px 6px 2px 6px;
+ border-top: 1px solid #CCCCCC;
+ border-right: 1px solid #333333;
+ border-bottom: 1px solid #333333;
+ border-left: 1px solid #CCCCCC;
+}
+#squares {
+ /*color: #FFF;*/
+ /*background-color: rgba(255,255,255,0.3);*/
+ background-color:  rgba(0,0,0,0.4);
+ display: block;
+ float: left;
+ padding: 2px;
+ width:150px;
+ height:150px;
+ border-style: solid;
+ border-radius: 10px;
+ border-width: 2px;
+ margin-left: 40px;
+ margin-top: 50px;
+ margin-right: 40px;
+}
+#squares:hover {
+  border-color: rgba(255,255,255,0.3);
+}
+#squares a {
+  font-size: 20px;
+  margin-top: 50px;
+}
+#squares h5 {
+  margin-bottom: 5px;
+}
+#restaurant-details {
+ margin-left: 50px;
+ margin-right: 50px;
+ border-width: 3px;
+ border-style: solid;
+ border-radius: 10px;
+}
+#review {
+ margin-left: 150px;
+ margin-right: 550px;
+ margin-top: 50px;
+ border-style: solid;
+ border-radius: 10px;
+ border-width: 1px;
+}
+#reviews {
+ margin-left: 30px;
+}

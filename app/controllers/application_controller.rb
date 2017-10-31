@@ -46,12 +46,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def create_restaurant
-    # find_user
-    @restaurant = Restaurant.new(name: params[:name], cuisine: params[:cuisine], address: params[:address],
-    city: params[:city], state: params[:state], zip: params[:zip], user_id: 1)
+    find_user
+    # current_user
+    # @restaurant = Restaurant.new(name: params[:restaurant][:name], cuisine: params[:restaurant][:cuisine], address: params[:address], city: params[:restaurant][:city], state: params[:restaurant][:state], zip: params[:restaurant][:zip], user_id: params[:restaurant][:user_id])
+    @restaurant = Restaurant.new(params[:args])
       if @restaurant.save
-        # redirect_to '/restaurants'
-        render plain: "Restaurant saved", status: 200
+        redirect_to '/restaurants'
+        # render plain: "Restaurant saved", status: 200
       else
         render plain: "Something went wrong", status: 422
       end
@@ -80,7 +81,7 @@ class ApplicationController < ActionController::Base
   @review = Review.new(numerical_review: params[:review][:numerical_review], content: params[:review][:content],
   restaurant_id: params[:review][:restaurant_id], user_id: @user.id)
     if @review.save
-      erb :'restaurants/show'
+      redirect_to "/restaurants/#{@restaurant.id}"
     else
       status 422
       @errors = @review.errors.full_messages

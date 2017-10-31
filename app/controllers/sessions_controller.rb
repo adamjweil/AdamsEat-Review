@@ -2,13 +2,13 @@ class SessionsController < ApplicationController
 
   def new
     user = User.new
-    render json: user
+    # render json: user
   end
 
   def create
-    user = User.find_by(email: params[:user][:password_digest])
-    if user
-      sessions[:user_id] = user.id
+    user = User.find_by_email(params[:user][:email])
+    if user && user.authenticate(params[:user][:password])
+      session[:user_id] = user.id
       # render json: user
       redirect_to "/restaurants"
     else
@@ -18,6 +18,13 @@ class SessionsController < ApplicationController
 
   def delete
     session.clear
-    render json: {message: "Session deleted"}
+    redirect_to "/restaurants"
+    # render json: {message: "Session deleted"}
+  end
+
+  private
+
+  def session_params
+    params.require(:session).permit(:email, :password)
   end
 end
