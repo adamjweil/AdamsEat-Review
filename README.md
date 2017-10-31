@@ -1,27 +1,15 @@
-# Heroku 
+# Heroku
 https://adams-eatandreview.herokuapp.com/
 
-# README
+# Screenshots
+ - Main Page
+ <img width="1117" alt="rest_list" src="https://user-images.githubusercontent.com/25589910/32250126-b16bcdf2-be61-11e7-8e4a-8e854328063e.png">
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ - Not Logged In
+ <img width="1192" alt="main_not_logged_in" src="https://user-images.githubusercontent.com/25589910/32250206-f36c7864-be61-11e7-9aa4-ca1aeb78d3b1.png">
 
-Things you may want to cover:
+ - Restaurant Detail Page
+ <img width="1138" alt="rest_reviews" src="https://user-images.githubusercontent.com/25589910/32250154-ca818cb4-be61-11e7-93a7-3c8f06c4f046.png">
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ - Post New Restaurant Page
+ <img width="1120" alt="new_rest" src="https://user-images.githubusercontent.com/25589910/32250176-da001250-be61-11e7-9206-4a2f351fe1c7.png">
