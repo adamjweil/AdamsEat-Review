@@ -1,42 +1,43 @@
-<div id="nav">
-<nav>
-  <ul>
-<%current_user%>
-    <% if logged_in? %>
-    <li><a href='/logout'>Log out</a></li>
-    <li><a href='/restaurants/new'>Post A Restaurant</a></li>
-    <li ><a href='/restaurants'>Restaurants</a></li>
-    <li><a href='/users/show'>Hello, <%= current_user.username %></a></li>
-    <% else %>
-    <li><a href='/sessions/new'>Log in</a></li>
-    <li><a href='/users/new'>Register</a></li>
-    <li ><a href='/restaurants'>Homepage</a></li>
-    <% end %>
-  </ul>
-</nav>
-</div>
+<header>
+  <nav>
+    <span class="movetext">Adam's Eat & Revew</span>
+  <img class="" src="https://www.matchbook.com/assets/images/icons/white/Twitter_logo_white.png">
+      <% current_user %>
+        <% if logged_in? %>
+          <a href='/users/show'>Hello, <%= current_user.username %></a>
+          <a href='/restaurants/new'>Post A Restaurant</a>
+          <a href='/restaurants' class"active">Restaurants</a>
+          <a href='/logout'>Log out</a>
+        <% else %>
+          <a href='/users/new'>Register</a>
+          <a href='/restaurants'>Homepage</a>
+      <% end %>
+  </nav>
+</header>
+
 <body>
-<!-- ${param.errorMsg} -->
-<h1 style="text-decoration: underline;">Adam's Eat & Review</h1>
-<% if logged_in? %>
-	<form action="/restaurants" method="post">
-		<fieldset><legend>Post New Restaurant</legend><br>
-			<label for="name">Name: </label>
-      <input  type="text" name="restaurant[name]" placeholder="Name" style="width:200px;">
-      <label for="cuisine">Cuisine: </label>
-      <input  type="text" name="restaurant[cuisine]" placeholder="Cuisine"style="width:200px;"><br><br>
-      <label for="address">Address: </label>
-      <input  type="text" name="restaurant[address]" placeholder="Address" style="width:460px;"><br><br>
-      <label for="city">City: </label>
-      <input  type="text" name="restaurant[city]" placeholder="City">
-      <label for="state">State: </label>
-      <input  type="text" name="restaurant[state]" placeholder="State" style="width:150px;">
-      <label for="zip">Zip: </label>
-      <input  type="text" name="restaurant[zip]" placeholder="Zip" style="width:75px;"><br><br>
-			<input type="submit" value="Save Restaurant!" id="sub">
-		</fieldset>
-	</form>
-      <% else %>
-        <h2>You Need To Be Logged In To Post New Restaurants!!!!  :)</h2>
-  <% end %>
-</body>
+<div id="main-container">
+  <% if logged_in? %>
+  <% find_user %>
+  	<form action="/restaurants" method="post">
+  		<fieldset><legend>Post New Restaurant</legend><br>
+  			<label for="name">Name: </label>
+        <input  type="text" name="restaurant[name]" placeholder="Name" style="width:200px;">
+        <label for="cuisine">Cuisine: </label>
+        <input  type="text" name="restaurant[cuisine]" placeholder="Cuisine"style="width:200px;"><br><br>
+        <label for="address">Address: </label>
+        <input  type="text" name="restaurant[address]" placeholder="Address" style="width:460px;"><br><br>
+        <label for="city">City: </label>
+        <input  type="text" name="restaurant[city]" placeholder="City">
+        <label for="state">State: </label>
+        <input  type="text" name="restaurant[state]" placeholder="State" style="width:150px;">
+        <label for="zip">Zip: </label>
+        <input  type="text" name="restaurant[zip]" placeholder="Zip" style="width:75px;"><br><br>
+  			<input type="submit" value="Save Restaurant!" id="sub">
+  		</fieldset>
+  	</form>
+        <% else %>
+          <h2>You Need To Be Logged In To Post New Restaurants!!!!  :)</h2>
+    <% end %>
+  </body>
+</div>

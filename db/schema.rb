@@ -22,18 +22,18 @@ ActiveRecord::Schema.define(version: 20171020182829) do
     t.string "city"
     t.string "state"
     t.integer "zip"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
     t.integer "restaurant_id"
-    t.bigint "user_id"
+    t.integer "user_id"
     t.integer "numerical_review", null: false
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

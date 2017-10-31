@@ -1,43 +1,78 @@
-<div id="nav">
-<nav>
-  <ul>
-<%current_user%>
-    <% if logged_in? %>
-    <li><a href='/logout'>Log out</a></li>
-    <li><a href='/restaurants/new'>Post A Restaurant</a></li>
-    <li ><a href='/restaurants'>Restaurants</a></li>
-    <li><a href='/users/show'>Hello, <%= current_user.username %></a></li>
-    <% else %>
-    <li><a href='/sessions/new'>Log in</a></li>
-    <li><a href='/users/new'>Register</a></li>
-    <li ><a href='/restaurants'>Homepage</a></li>
-    <% end %>
-  </ul>
-</nav>
-</div>
 
-<% find_user %>
-<body>
-<h1 style="text-decoration: underline;">Adam's Eat & Review</h1>
-<div id="new-restaurant">
-  <% if logged_in? %>
-  <a href="/restaurants/new" class="button">Post New Restaurant!</a>
-  <%end %>
-</div>
-  <% @restaurants.each do |restaurant| %>
-  <div id="squares">
-    <br><br>
-    <center><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></center></a>
-    <center><h5><%= restaurant.city %>, <%= restaurant.state %> </center>
-        <% if logged_in? %>
+  <header>
+    <nav>
+      <span class="movetext">Adam's Eat & Revew</span>
+    <img class="" src="https://www.matchbook.com/assets/images/icons/white/Twitter_logo_white.png">
         <% current_user %>
-          <% if restaurant.user_id == current_user.id %>
-          <center><a href="/restaurants/<%= restaurant.id%>/edit">Edit</a> | <a href="/restaurants/<%= restaurant.id %>/delete">Delete</a></center>
+          <% if logged_in? %>
+            <a href='/restaurants/new'>Post A Restaurant</a>
+            <a href='/restaurants' class"active">Restaurants</a>
+            <a href='/logout'>Log out</a>
+          <% else %>
+            <a href='/users/new'>Register</a>
+            <a href='/restaurants'>Homepage</a>
         <% end %>
-      <% end %>
+    </nav>
+  </header>
+
+<body>
+<div id="main-container">
+  <div id="main-title">
+    <h2>Recently Added Restaurants</h2>
+      <div id="post-rest-button">
+        <% if logged_in? %>
+          <a href="/restaurants/new" class="button">Post New Restaurant!</a>
+        <%end %>
+      </div>
   </div>
-<% end %>
+  <% if !logged_in? %>
+    <div class="login">
+      <form action="/sessions" method="post">
+          <input type="text" placeholder="email" id="username" name="user[email]">
+          <input type="password" placeholder="Password" id="password" name="user[password]">
+          <input type="submit" value="Sign In" id="sub">
+      </form>
+      <div class="shadow"></div>
+    </div>
+  <% else %>
 
+  <% find_user %>
+    <div class="user-summary">
+      <div id="user-details">
+        <h5>User Details</h5>
+        <p>Username: <%= current_user.username %></p>
+        <p>Email: <%= current_user.email %></p>
+      </div>
+        <div id="user-posted-restaurants">
+          <h5>Restaurants</h5>
+            <% current_user.restaurants.each do |restaurant| %>
+            <p><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a> - <%= restaurant.city %>, <%= restaurant.state %></p>
+            <% end %>
+        </div>
+      <div id="user-posted-reviews">
+        <h5>Reviews</h5>
+          <% current_user.reviews.each do |review| %>
+          <p><a href="/restaurants/<%= review.restaurant_id %>"><%= review.content %></a> - Rating: <%= review.numerical_review %></p>
+          <% end %>
+      </div>
+    </div>
+  <% end %>
 
+  <% find_user %>
 
-</body>
+    <br>
+
+    <% @restaurants.each do |restaurant| %>
+    <div id="squares">
+        <center><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></center></a>
+        <center><h5><%= restaurant.city %>, <%= restaurant.state %> </h5></center>
+          <% if logged_in? %>
+          <% current_user %>
+            <% if restaurant.user_id == current_user.id %>
+            <center><a href="/restaurants/<%= restaurant.id%>/edit">Edit</a> | <a href="/restaurants/<%= restaurant.id %>/delete">Delete</a></center>
+          <% end %>
+        <% end %>
+    </div>
+  <% end %>
+  </body>
+</div>

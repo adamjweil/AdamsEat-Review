@@ -28,9 +28,11 @@ class UsersController < ApplicationController
 
     # respond_to do |format|
       if @user.save
+        session[:user_id] = @user.id
+        redirect_to "/restaurants"
         # format.html { redirect_to @user, notice: 'User was successfully created.' }
         # format.json { render :show, status: :created, location: @user }
-        render plain: "success", status: 201
+        # render plain: "success", status: 201
       else
         render plain: "failure", status: 422
       end
