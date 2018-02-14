@@ -1,122 +1,87 @@
-
   <header>
     <nav class="navbar navbar-ct-blue navbar-fixed-top navbar-transparent" role="navigation">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">
-                <div class="logo">
-                    <img src="https://s3.amazonaws.com/creativetim_bucket/new_logo.png">
-                </div>
-                <div class="brand"> Creative Tim </div>
-              </a>
+          <img class="" src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png">
+            <% current_user %>
+              <% if logged_in? %>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                      <a href='/restaurants'>
+                        <i class="pe-7s-mail"></i>
+                        <p>Home</p>
+                      </a>
+                    </li>
+                    <li>
+                        <a href='/restaurants/new' data-toggle="post">
+                            <i class="postRestaurant"></i>
+                            <p>Post A Restaurant</p>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href='/logout'>
+                            <i class="pe-7s-user"></i>
+                            <p>Logout</p>
+                        </a>
+                    </li>
+                  </ul>
+                <% else %>
+                  <ul class="nav navbar-nav navbar-right">
+                      <li>
+                          <a href='/users/new'>
+                              <i class="register"></i>
+                              <p>Register</p>
+                          </a>
+                      </li>
+                      <li>
+                          <a href='/restaurants'>
+                              <i class="pe-7s-mail"></i>
+                              <p>Homepage</p>
+                          </a>
+                      </li>
+                    </ul>
+                  <% end %>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="javascript:void(0)" data-toggle="search">
-                            <i class="pe-7s-search"></i>
-                            <p>Search</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="pe-7s-mail">
-                                <span class="label"> 23 </span>
-                            </i>
-                            <p>Messages</p>
-                        </a>
-                    </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="pe-7s-user"></i>
-                        <p>Account</p>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+
     </nav>
-<!--  end navbar -->
 
-<% if false %>
-    <nav>
-      <!-- <span class="movetext">Adam's Eat & Revew</span> -->
-    <img class="" src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png">
-        <% current_user %>
-          <% if logged_in? %>
-            <a href='/restaurants/new'>Post A Restaurant</a>
-            <a href='/restaurants' class"active">Restaurants</a>
-            <a href='/logout'>Log out</a>
-          <% else %>
-            <a href='/users/new'>Register</a>
-            <a href='/restaurants'>Homepage</a>
-        <% end %>
-    </nav>
-  </header>
 
-  <%end%>
-
-<body>
-<div id="main-container">
-  <div id="main-title">
-    <h2>Recently Added Restaurants</h2>
-      <div id="post-rest-button">
-        <% if logged_in? %>
-          <a href="/restaurants/new" class="button">Post New Restaurant!</a>
-        <%end %>
+    <% if !logged_in? %>
+      <div class="login">
+        <form action="/sessions" method="post">
+            <input type="text" placeholder="email" id="username" name="user[email]">
+            <input type="password" placeholder="Password" id="password" name="user[password]">
+            <input type="submit" value="Sign In" id="sub">
+        </form>
+        <div class="shadow"></div>
       </div>
-  </div>
-  <% if !logged_in? %>
-    <div class="login">
-      <form action="/sessions" method="post">
-          <input type="text" placeholder="email" id="username" name="user[email]">
-          <input type="password" placeholder="Password" id="password" name="user[password]">
-          <input type="submit" value="Sign In" id="sub">
-      </form>
-      <div class="shadow"></div>
-    </div>
-  <% else %>
-
-  <% find_user %>
-    <div class="user-summary">
-      <div id="user-details">
-        <h5>User Details</h5>
-        <p>Username: <%= current_user.username %></p>
-        <p>Email: <%= current_user.email %></p>
+    </header>
+    <div id="main-container">
+      <div id="main-title">
+        <h1>Recently Added Restaurants</h1>
       </div>
-        <div id="user-posted-restaurants">
-          <h5>Restaurants</h5>
-            <% current_user.restaurants.each do |restaurant| %>
-            <p><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a> - <%= restaurant.city %>, <%= restaurant.state %></p>
+      <% find_user %>
+        <br>
+          <% @restaurants.each do |restaurant| %>
+        <div id="squares">
+            <center><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></center></a>
+            <center><h5><%= restaurant.city %>, <%= restaurant.state %> </h5></center>
+              <% if logged_in? %>
+              <% current_user %>
+                <% if restaurant.user_id == current_user.id %>
+                <center><a href="/restaurants/<%= restaurant.id%>/edit">Edit</a> | <a href="/restaurants/<%= restaurant.id %>/delete">Delete</a></center>
+              <% end %>
             <% end %>
         </div>
-      <div id="user-posted-reviews">
-        <h5>Reviews</h5>
-          <% current_user.reviews.each do |review| %>
-          <p><a href="/restaurants/<%= review.restaurant_id %>"><%= review.content %></a> - Rating: <%= review.numerical_review %></p>
-          <% end %>
-      </div>
-    </div>
-  <% end %>
-
+        <% end %>
+    <% else %>
+  <body>
+<div id="main-container">
+  <div id="main-title">
+    <h1>Recently Added Restaurants</h1>
+  </div>
   <% find_user %>
-
     <br>
-
-    <% @restaurants.each do |restaurant| %>
+      <% @restaurants.each do |restaurant| %>
     <div id="squares">
         <center><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></center></a>
         <center><h5><%= restaurant.city %>, <%= restaurant.state %> </h5></center>
@@ -126,6 +91,26 @@
             <center><a href="/restaurants/<%= restaurant.id%>/edit">Edit</a> | <a href="/restaurants/<%= restaurant.id %>/delete">Delete</a></center>
           <% end %>
         <% end %>
+    </div>
+  <% end %>
+  <% find_user %>
+    <div class="user-summary">
+      <div id="welcome">
+        <h5>Hello, <%= current_user.username %>! See all of the reviews and restaurants you've posted below...</h5>
+      </div>
+        <div id="user-posted-restaurants">
+          <h5>Restaurants</h5>
+            <% current_user.restaurants.each do |restaurant| %>
+            <p><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a> - <%= restaurant.city %>, <%= restaurant.state %></p>
+            <% end %>
+        </div>
+      <div id="user-posted-reviews">
+
+        <h5>Reviews</h5>
+          <% current_user.reviews.each do |review| %>
+          <p><a href="/restaurants/<%= review.restaurant_id %>"><%= review.content %></a> - Rating: <%= review.numerical_review %></p>
+          <% end %>
+      </div>
     </div>
   <% end %>
   </body>

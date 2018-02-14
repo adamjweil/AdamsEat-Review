@@ -1,24 +1,38 @@
 <header>
-  <nav>
-    <!-- <span class="movetext">Adam's Eat & Revew</span> -->
-  <img class="" src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png">
-      <% current_user %>
-        <% if logged_in? %>
-          <a href='/users/show'>Hello, <%= current_user.username %></a>
-          <a href='/restaurants/new'>Post A Restaurant</a>
-          <a href='/restaurants' class"active">Restaurants</a>
-          <a href='/logout'>Log out</a>
-        <% else %>
-          <a href='/users/new'>Register</a>
-          <a href='/restaurants'>Homepage</a>
-      <% end %>
+  <nav class="navbar navbar-ct-blue navbar-fixed-top navbar-transparent" role="navigation">
+    <div class="container">
+        <img class="" src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png">
+
+              <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a href='/restaurants'>
+                      <i class="pe-7s-mail"></i>
+                      <p>Home</p>
+                    </a>
+                  </li>
+                  <li>
+                      <a href='/restaurants/new' data-toggle="post">
+                          <i class="postRestaurant"></i>
+                          <p>Post A Restaurant</p>
+                      </a>
+                  </li>
+                  <li class="dropdown">
+                      <a href='/logout'>
+                          <i class="pe-7s-user"></i>
+                          <p>Logout</p>
+                      </a>
+                  </li>
+                </ul>
+
+      </div>
   </nav>
 </header>
 
 <body>
 <div id="main-container">
-  <% if logged_in? %>
+  <% current_user %>
   <% find_user %>
+  <% if logged_in? %>
   	<form action="/restaurants" method="post">
   		<fieldset><legend>Post New Restaurant</legend><br>
   			<label for="name">Name: </label>
