@@ -1,9 +1,5 @@
-$(function() {
-  // Setup drop down menu
-  $('.dropdown-toggle').dropdown();
 
-  // Fix input element click problem
-  $('.dropdown input, .dropdown label').click(function(e) {
-    e.stopPropagation();
-  });
-});
+    $('#jquery').on('click', function(){
+        alert("MouseEnter!"); // This will create an alert box
+        console.log("MouseEnter!"); // This will log to the JS console on your browser which is a
+    }
