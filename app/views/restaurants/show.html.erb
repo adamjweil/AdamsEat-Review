@@ -1,64 +1,174 @@
 <header>
-  <nav>
-    <!-- <span class="movetext">Adam's Eat & Revew</span> -->
-  <img class="" src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png">
-      <% current_user %>
-        <% if logged_in? %>
-          <a href='/restaurants/new'>Post A Restaurant</a>
-          <a href='/restaurants' class"active">Restaurants</a>
-          <a href='/logout'>Log out</a>
-        <% else %>
-          <a href='/users/new'>Register</a>
-          <a href='/restaurants'>Homepage</a>
-      <% end %>
-  </nav>
-</header>
+  <% current_user %>
+  <% if logged_in? %>
+  <nav class="navbar navbar-toggleable-md navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-brand brand-name">
+        <a class="navbar-brand"><img src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png" width="130px" height="65"></a>
+      </div>
+      <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+      <ul class="nav navbar-nav navbar-right" >
+        <!-- <li class="nav-item active"> -->
+        <li class="dropdown">
+          <a href="/" class="login-dropdown-toggle"><b>Home</b></a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="nav-link"><b>Post A Restaurant</b></a>
+        </li>
+        <li class="dropdown">
+          <a href="/logout" class="nav-link"><b>Log Out</b><span class="caret"></span></a>
+        </li>
+      </div>
+    </nav>
 
-<div id="main-container">
-  <% find_user %>
-  <br><br>
-  <div id="restaurant-details">
-    <h4><%= @restaurant.name %></h4>
+    <% else %>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-brand brand-name">
+          <a class="navbar-brand"><img src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png"></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="register-dropdown-toggle"><b>Register</b><span class="caret"></span></a>
+            <ul id="register-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    Register via
+                    <div class="social-buttons">
+                      <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                      <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+                    </div>
+                    or
+                    <form class="form" role="form" method="post" action="/users" accept-charset="UTF-8" id="login-nav">
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Username </label>
+                        <input type="text" class="form-control" name="user[username]" id="exampleInputEmail2" placeholder="Username" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                        <input type="email" class="form-control" name="user[email]" id="exampleInputEmail2" placeholder="Email address" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="user[password]"required>
+
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Password Confirmation</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password Confirmation" name="user[password_confirmation]"required>
+                        <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Register!</button>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> keep me logged-in
+                        </label>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><p class="navbar-text">Already have an account?</p></li>
+          <li class="dropdown">
+            <a href="#" class="login-dropdown-toggle" ><b>Login</b> <span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                    Login via
+                    <div class="social-buttons">
+                      <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                      <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+                    </div>
+                    or
+                    <form class="form" role="form" method="post" action="/sessions" accept-charset="UTF-8" id="login-nav">
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                        <input type="email" class="form-control" name="user[email]" id="exampleInputEmail2" placeholder="Email address" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="user[password]"required>
+                        <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> keep me logged-in
+                        </label>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="bottom text-center">
+                    New here ? <a href="#"><b>Join Us</b></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <% end %>
+    </nav>
+  </header>
+
+  <div id="main-container">
+    <% find_user %>
+    <br><br>
+    <div id="restaurant-details">
+      <h4><%= @restaurant.name %></h4>
       <span>Cuisine: <%= @restaurant.cuisine %></span><br>
       <span>Address: <%= @restaurant.address%> </span><br>
       <span>City: <%= @restaurant.city %>,   State: <%= @restaurant.state %>,   Zip: <%= @restaurant.zip %> </span>
-  </div>
+    </div>
 
-  <h3>Reviews<h5>(Count: <%= @restaurant.reviews.count %> | Avg Score: <%= @restaurant.average_review %> )  </h5></h3>
-  <div id="reviews">
-    <% @restaurant.reviews.each do |review| %>
-        <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
+    <h3>Reviews<h5>(Count: <%= @restaurant.reviews.count %> | Avg Score: <%= @restaurant.average_review %> )  </h5></h3>
+    <div id="reviews">
+      <% @restaurant.reviews.each do |review| %>
+      <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
         <h6> - <%= review.user.username %><br></h6>
-      <% end %>
-  </div>
-
-
-  <div id="review">
-    <center><h3>Leave A Review</h3></center>
-
-    <% if logged_in? %>
-    <form action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
-      <label for="rating">Rating:</label>
-      <select name="review[numerical_review]">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select><br><br>
-      <label for="content">Review: </label>
-        <input  type="text" name="review[content]" placeholder="Write Your Review Here" style="width:300px;height: 300px;"><br><br>
-        <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
-      <center><input type="submit" value="Post Your Review!" id="sub"></center>
-        <% else %>
-        <h5>You need to be logged in to post a review</h5>
-        <h5><a href="/sessions/new">Log in</a></h5>
         <% end %>
-    </form>
-  </div>
-</div>
+      </div>
+
+
+      <div id="review">
+        <center><h3>Leave A Review</h3></center>
+
+        <% if logged_in? %>
+        <form action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
+          <label for="rating">Rating:</label>
+          <select name="review[numerical_review]">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select><br><br>
+          <label for="content">Review: </label>
+          <input  type="text" name="review[content]" placeholder="Write Your Review Here" style="width:300px;height: 300px;"><br><br>
+          <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
+          <center><input type="submit" value="Post Your Review!" id="sub"></center>
+          <% else %>
+          <h5>You need to be logged in to post a review</h5>
+          <h5><a href="/sessions/new">Log in</a></h5>
+          <% end %>
+        </form>
+      </div>
+    </div>
