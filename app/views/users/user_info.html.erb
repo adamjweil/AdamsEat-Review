@@ -1,0 +1,19 @@
+<% find_user %>
+  <div class="user-summary">
+    <div id="welcome">
+      <h5>Hello, <%= current_user.username %>! See all of the reviews and restaurants you've posted below...</h5>
+    </div>
+      <div id="user-posted-restaurants">
+        <h5>Restaurants</h5>
+          <% current_user.restaurants.each do |restaurant| %>
+          <p><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a> - <%= restaurant.city %>, <%= restaurant.state %></p>
+          <% end %>
+      </div>
+    <div id="user-posted-reviews">
+
+      <h5>Reviews</h5>
+        <% current_user.reviews.each do |review| %>
+        <p><a href="/restaurants/<%= review.restaurant_id %>"><%= review.content %></a> - Rating: <%= review.numerical_review %></p>
+        <% end %>
+    </div>
+  </div>

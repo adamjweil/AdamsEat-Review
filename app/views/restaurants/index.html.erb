@@ -1,7 +1,11 @@
   <header>
-    <nav class="navbar navbar-ct-blue navbar-fixed-top navbar-transparent" role="navigation">
-      <div class="container">
-          <img class="" src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-brand brand-name">
+          <a class="navbar-brand">
+          <img src="https://user-images.githubusercontent.com/25589910/32250004-3cc3e052-be61-11e7-92ab-3858b07e2de5.png">
+        </a>
+        </div>
             <% current_user %>
               <% if logged_in? %>
                 <ul class="nav navbar-nav navbar-right">
@@ -27,10 +31,51 @@
                 <% else %>
                   <ul class="nav navbar-nav navbar-right">
                       <li>
-                          <a href='/users/new'>
+                          <a href="#" class="register-dropdown-toggle">
                               <i class="register"></i>
-                              <p>Register</p>
+                              <p>Register<span class="caret"></span></p>
                           </a>
+                          <ul id="register-dp" class="dropdown-menu">
+                            <li>
+                               <div class="row">
+                                  <div class="col-md-12">
+                                    Login via
+                                    <div class="social-buttons">
+                                      <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                                      <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+                                    </div>
+                                                    or
+                                     <form class="form" role="form" method="post" action="/users" accept-charset="UTF-8" id="login-nav">
+                                       <div class="form-group">
+                                          <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                          <input type="username" class="form-control" id="exampleInputEmail2" placeholder="Username" name="user[username]" required>
+                                       </div>
+                                        <div class="form-group">
+                                           <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                           <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" name="user[email]" required>
+                                        </div>
+                                        <div class="form-group">
+                                           <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                           <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="user[password]" required>
+                                        </div>
+                                        <div class="form-group">
+                                           <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                           <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="user[password_confirmation]" required>
+                                                                 <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                                        </div>
+                                        <div class="form-group">
+                                           <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                        </div>
+                                        <div class="checkbox">
+                                           <label>
+                                           <input type="checkbox"> keep me logged-in
+                                           </label>
+                                        </div>
+                                     </form>
+                                  </div>
+                               </div>
+                            </li>
+                          </ul>
                       </li>
                       <li>
                           <a href='/restaurants'>
@@ -40,40 +85,55 @@
                       </li>
                     </ul>
                   <% end %>
+
+                  <ul class="nav navbar-nav navbar-right">
+     <li><p class="navbar-text">Already have an account?</p></li>
+     <li class="dropdown">
+       <a href="#" class="login-dropdown-toggle" ><b>Login</b> <span class="caret"></span></a>
+   <ul id="login-dp" class="dropdown-menu">
+     <li>
+        <div class="row">
+           <div class="col-md-12">
+             Login via
+             <div class="social-buttons">
+               <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+               <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+             </div>
+                             or
+              <form class="form" role="form" method="post" action="/sessions" accept-charset="UTF-8" id="login-nav">
+                 <div class="form-group">
+                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                    <input type="email" class="form-control" name="user[username]" id="exampleInputEmail2" placeholder="Email address" required>
+                 </div>
+                 <div class="form-group">
+                    <label class="sr-only" for="exampleInputPassword2">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="user[password]"required>
+                                          <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                 </div>
+                 <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                 </div>
+                 <div class="checkbox">
+                    <label>
+                    <input type="checkbox"> keep me logged-in
+                    </label>
+                 </div>
+              </form>
+           </div>
+           <div class="bottom text-center">
+             New here ? <a href="#"><b>Join Us</b></a>
+           </div>
         </div>
+     </li>
+   </ul>
+     </li>
+   </ul>
+        </div>
+
 
     </nav>
 
 
-    <% if !logged_in? %>
-      <div class="login">
-        <form action="/sessions" method="post">
-            <input type="text" placeholder="email" id="username" name="user[email]">
-            <input type="password" placeholder="Password" id="password" name="user[password]">
-            <input type="submit" value="Sign In" id="sub">
-        </form>
-        <div class="shadow"></div>
-      </div>
-    </header>
-    <div id="main-container">
-      <div id="main-title">
-        <h1>Recently Added Restaurants</h1>
-      </div>
-      <% find_user %>
-        <br>
-          <% @restaurants.each do |restaurant| %>
-        <div id="squares">
-            <center><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></center></a>
-            <center><h5><%= restaurant.city %>, <%= restaurant.state %> </h5></center>
-              <% if logged_in? %>
-              <% current_user %>
-                <% if restaurant.user_id == current_user.id %>
-                <center><a href="/restaurants/<%= restaurant.id%>/edit">Edit</a> | <a href="/restaurants/<%= restaurant.id %>/delete">Delete</a></center>
-              <% end %>
-            <% end %>
-        </div>
-        <% end %>
-    <% else %>
   <body>
 <div id="main-container">
   <div id="main-title">
@@ -93,25 +153,7 @@
         <% end %>
     </div>
   <% end %>
-  <% find_user %>
-    <div class="user-summary">
-      <div id="welcome">
-        <h5>Hello, <%= current_user.username %>! See all of the reviews and restaurants you've posted below...</h5>
-      </div>
-        <div id="user-posted-restaurants">
-          <h5>Restaurants</h5>
-            <% current_user.restaurants.each do |restaurant| %>
-            <p><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a> - <%= restaurant.city %>, <%= restaurant.state %></p>
-            <% end %>
-        </div>
-      <div id="user-posted-reviews">
 
-        <h5>Reviews</h5>
-          <% current_user.reviews.each do |review| %>
-          <p><a href="/restaurants/<%= review.restaurant_id %>"><%= review.content %></a> - Rating: <%= review.numerical_review %></p>
-          <% end %>
-      </div>
-    </div>
-  <% end %>
+
   </body>
 </div>
