@@ -4431,8 +4431,8 @@
  }
  .navbar-brand > img {
    display: inline-block;
-   /*width: 130px;
-   height: 65px;*/
+   width: 130px;
+   height: 65px;
    margin-top: -30px;
  }
  @media (min-width: 768px) {
