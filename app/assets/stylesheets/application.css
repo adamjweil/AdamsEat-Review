@@ -29,13 +29,38 @@
  }
  #restaurant-containter {
    max-width: 1200px;
+   height: 500px;
    margin-left: 100px;
    margin-right: 100px;
-   border-left-color: rgba(0,0,0,0.4);
-   /*border: 1px solid rgba(0,0,0,0.4);*/
+   margin-top: -25px;
+   border-left: 1px solid rgba(0,0,0,0.4);
+   border-right: 1px solid rgba(0,0,0,0.4);
+   background: linear-gradient(#fdfbfb, #ebedee);
+ }
+ #new-rest-container {
+   max-width: 1200px;
+   height: 500px;
+   margin-left: 100px;
+   margin-right: 100px;
+   margin-top: -25px;
+   position: relative;
+   border-left: 1px solid rgba(0,0,0,0.4);
+   border-right: 1px solid rgba(0,0,0,0.4);
+   background: linear-gradient(#fdfbfb, #ebedee);
+ }
+ #new-rest-form {
+   border: 3px solid #337ab7;
+   border-radius: 20px;
+   margin-top: 25px;
+   padding: 20px;
+   position: absolute;
+   left: 25%;
+   background: linear-gradient(#f5f7fa, #c3cfe2);
+   opacity: .8;
  }
  #main-title {
-   margin-bottom: -50px;
+   padding-top: 10px;
+   margin-bottom: 0px;
  }
 #squares {
   /*background-color:  rgba(0,0,0,0.4);*/
@@ -49,8 +74,8 @@
   /*border-radius: 10px;*/
   border-width: 2px;
   margin-left: 40px;
-  margin-top: 50px;
-  margin-right: 40px;
+  margin-top: 20px;
+  /*margin-right: 40px;*/
 }
 #squares:hover {
   border-color: red;
