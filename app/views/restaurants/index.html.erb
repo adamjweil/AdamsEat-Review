@@ -1,26 +1,28 @@
 <%= render "layouts/navbar" %>
 <body>
-  <div id="restaurant-containter">
-    <div id="main-container">
-      <div id="main-title">
-        <h1>Recently Added Restaurants</h1>
-      </div>
-      <% find_user %>
-      <br>
-      <% @restaurants.each do |restaurant| %>
-      <div id="squares">
-        <center><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></center></a>
-        <center><h5><%= restaurant.city %>, <%= restaurant.state %> </h5></center>
-        <% if logged_in? %>
-        <% current_user %>
-        <% if restaurant.user_id == current_user.id %>
-        <center><a href="/restaurants/<%= restaurant.id%>/edit">Edit</a> | <a href="/restaurants/<%= restaurant.id %>/delete">Delete</a></center>
+  <div id="restaurant-outer-containter">
+    <div id="restaurant-inner-containter">
+      <div id="main-container">
+        <div id="main-title">
+          <h1>Recently Added Restaurants</h1>
+        </div>
+        <% find_user %>
+        <br>
+        <% @restaurants.each do |restaurant| %>
+        <div id="squares">
+          <center><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></center></a>
+          <center><h5><%= restaurant.city %>, <%= restaurant.state %> </h5></center>
+          <% if logged_in? %>
+          <% current_user %>
+          <% if restaurant.user_id == current_user.id %>
+          <center><a href="/restaurants/<%= restaurant.id%>/edit">Edit</a> | <a href="/restaurants/<%= restaurant.id %>/delete">Delete</a></center>
+          <% end %>
+          <% end %>
+        </div>
         <% end %>
-        <% end %>
-      </div>
-      <% end %>
 
 
+      </div>
     </div>
   </div>
 </div>

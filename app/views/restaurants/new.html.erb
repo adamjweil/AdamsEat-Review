@@ -1,47 +1,47 @@
 <%= render "layouts/navbar" %>
 
 <body>
-<div id="main-container">
-  <div id="new-rest-container">
-  <% current_user %>
-  <% find_user %>
-  <% if logged_in? %>
-  <div id="new-rest-form">
-    <form class="form" role="form" method="post" action="/restaurants" accept-charset="UTF-8" id="login-nav">
+  <div id="main-container">
+    <div id="new-rest-container">
+      <% current_user %>
+      <% find_user %>
+      <% if logged_in? %>
+      <div id="new-rest-form">
+        <form class="form" role="form" method="post" action="/restaurants" accept-charset="UTF-8" id="login-nav">
 
-  		<fieldset><legend>Post New Restaurant</legend><br>
-        <div class="form-group">
-          <label class="sr-only" for="restaurantName">Name: </label>
-          <input type="text" class="form-control" name="restaurant[name]" id="exampleInputEmail2" placeholder="Name" required>
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="restaurantCuisine">Cuisine: </label>
-          <input type="text" class="form-control" name="restaurant[cuisine]" id="exampleInputEmail2" placeholder="Cuisine" style="width:200px" required>
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="restaurantAddress">Address: </label>
-          <input type="text" class="form-control" name="restaurant[address]" id="exampleInputEmail2" placeholder="Address" style="width:460px" required>
-        </div>
-        <div class="form-group">
-          <label class="sr-only" for="restaurantCity">City: </label>
-          <input type="text" class="form-control" name="restaurant[city]" id="exampleInputEmail2" placeholder="City" style="width: 220px; display:inline-block; margin-right: 15px" required>
+          <fieldset><legend>Post New Restaurant</legend><br>
+            <div class="form-group">
+              <label class="sr-only" for="restaurantName">Name: </label>
+              <input type="text" class="form-control" name="restaurant[name]" id="exampleInputEmail2" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="restaurantCuisine">Cuisine: </label>
+              <input type="text" class="form-control" name="restaurant[cuisine]" id="exampleInputEmail2" placeholder="Cuisine" style="width:200px" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="restaurantAddress">Address: </label>
+              <input type="text" class="form-control" name="restaurant[address]" id="exampleInputEmail2" placeholder="Address" style="width:460px" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="restaurantCity">City: </label>
+              <input type="text" class="form-control" name="restaurant[city]" id="exampleInputEmail2" placeholder="City" style="width: 220px; display:inline-block; margin-right: 15px" required>
 
-          <label class="sr-only" for="restaurantState">State: </label>
-          <input type="text" class="form-control" name="restaurant[state]" id="exampleInputEmail2" placeholder="State" style="width: 100px; display:inline-block; margin-right: 15px" required>
+              <label class="sr-only" for="restaurantState">State: </label>
+              <input type="text" class="form-control" name="restaurant[state]" id="exampleInputEmail2" placeholder="State" style="width: 100px; display:inline-block; margin-right: 15px" required>
 
-          <label class="sr-only" for="restaurantState">Zip: </label>
-          <input type="text" class="form-control" name="restaurant[zip]" id="exampleInputEmail2" placeholder="Zip" style="width: 100px; display:inline-block" required>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block" style="width: 150px; margin-left: 30%">Submit!</button>
-        </div>
+              <label class="sr-only" for="restaurantState">Zip: </label>
+              <input type="text" class="form-control" name="restaurant[zip]" id="exampleInputEmail2" placeholder="Zip" style="width: 100px; display:inline-block" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block" style="width: 150px; margin-left: 30%">Submit!</button>
+            </div>
 
-  		</fieldset>
-  	</form>
+          </fieldset>
+        </form>
+      </div>
+      <% else %>
+      <h2>You Need To Be Logged In To Post New Restaurants!!!!  :)</h2>
+      <% end %>
+    </div>
   </div>
-        <% else %>
-          <h2>You Need To Be Logged In To Post New Restaurants!!!!  :)</h2>
-    <% end %>
-</div>
-</div>
 </body>

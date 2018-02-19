@@ -1,50 +1,64 @@
 <%= render "layouts/navbar" %>
 
-  <div id="main-container">
-    <% find_user %>
-    <br><br>
-    <div id="restaurant-details">
-      <h4><%= @restaurant.name %></h4>
-      <span>Cuisine: <%= @restaurant.cuisine %></span><br>
-      <span>Address: <%= @restaurant.address%> </span><br>
-      <span>City: <%= @restaurant.city %>,   State: <%= @restaurant.state %>,   Zip: <%= @restaurant.zip %> </span>
-    </div>
-
-    <h3>Reviews<h5>(Count: <%= @restaurant.reviews.count %> | Avg Score: <%= @restaurant.average_review %> )  </h5></h3>
-    <div id="reviews">
-      <% @restaurant.reviews.each do |review| %>
-      <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
-        <h6> - <%= review.user.username %><br></h6>
-        <% end %>
+<div id="restaurant-outer-containter">
+  <div id="restaurant-inner-containter">
+    <div id="main-container">
+      <% find_user %>
+      <br><br>
+      <div id="restaurant-show">
+        <div id="restaurant-details">
+          <div id="restaurant-show-header">
+            <h3><%= @restaurant.name %></h3>
+            <h4><%= @restaurant.cuisine %></h4>
+            <h5><%= @restaurant.reviews.count %> Reviews</h5>
+            <h5>Avg Score: <%= @restaurant.average_review %></h5>
+          </div>
+          <div id="restaurant-show-details">
+            <span><%= @restaurant.address%> </span><br>
+            <span><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %>, <%= @restaurant.country %></span>
+          </div>
+        </div>
       </div>
 
-
-      <div id="review">
-        <center><h3>Leave A Review</h3></center>
-
-        <% if logged_in? %>
-        <form action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
-          <label for="rating">Rating:</label>
-          <select name="review[numerical_review]">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select><br><br>
-          <label for="content">Review: </label>
-          <input  type="text" name="review[content]" placeholder="Write Your Review Here" style="width:300px;height: 300px;"><br><br>
-          <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
-          <center><input type="submit" value="Post Your Review!" id="sub"></center>
-          <% else %>
-          <h5>You need to be logged in to post a review</h5>
-          <h5><a href="/sessions/new">Log in</a></h5>
+      <div id="review-header">
+        <h3>Reviews<h3>
+        </div>
+        <% @restaurant.reviews.each do |review| %>
+        <div id="review-show">
+          <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
+            <h6> - <%= review.user.username %><br></h6>
+          </div>
           <% end %>
-        </form>
+
+
+          <div id="review">
+            <center><h3>Leave A Review</h3></center>
+
+            <% if logged_in? %>
+            <form action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
+              <label for="rating">Rating:</label>
+              <select name="review[numerical_review]">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select><br><br>
+              <label for="content">Review: </label>
+              <input  type="text" name="review[content]" placeholder="Write Your Review Here" style="width:300px;height: 300px;"><br><br>
+              <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
+              <center><input type="submit" value="Post Your Review!" id="sub"></center>
+              <% else %>
+              <h5>You need to be logged in to post a review</h5>
+              <h5><a href="/sessions/new">Log in</a></h5>
+              <% end %>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
