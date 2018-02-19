@@ -13,6 +13,8 @@ User.delete_all
   User.create(username: Faker::Name.name, email: Faker::Internet.safe_email, password: "password")
 end
 
+User.create(username: "Foodlover", email: "food@food.com", password: "password")
+
 # 20.times do
 #   Restaurant.create(name: Faker::Lorem.sentence(1), cuisine: Faker::Lorem.words(1), city: Faker::Address.city,
 #   address: Faker::Address.street_address, state: Faker::Address.state_abbr,
@@ -39,7 +41,29 @@ Restaurant.create(name: "Shaya", cuisine: "Israeli", city: "New Orleans", addres
 
 Restaurant.create(name: "Bad Saint", cuisine: "Filipino", city: "Washington", address: "3226 11th St. NW", state: "DC", country: "USA", user_id: User.all.sample.id)
 
+review_subjects = ["Very good food", "Exquisite food in an elegant but relaxed setting", "Sublime", "Amazing!", "Not worth the money", "UNIQUE EXPERIENCE", "The best!! Chef is Genius!!", "Exquisite splurge!", "amazing, elegant dining", "Wowzer!", "What a 3 Michelin Star restaurant should be", "The best restaurant I have ever had the pleasure of attending.", "Stunning in all respects", "A piece of Art", "Just wow.", "Tantalising...", "Great cooking but something missing", "Unforgettable", "Spectacular and Memorable", "Wedding anniversary celebration.", "Perfection", "Wouldn't try it again", "Excellent experiencie - this is a must do, at least once in your life"]
+
+review_content = [""]
+
+Review.create(restaurant_id: 1,
+              numerical_review: 8,
+              content: "Great chinese/french fusion!",
+              user_id: User.all.sample.id)
+
+Review.create(restaurant_id: 1,
+              numerical_review: 8,
+              content: "Best chinese food in Paris",
+              user_id: User.all.sample.id)
+
+Review.create(restaurant_id: 1,
+              numerical_review: 10,
+              content: "My husband and I tried this place on our honeymoon. Great service!",
+              user_id: User.all.sample.id)
+
 100.times do
   Review.create(restaurant_id: Restaurant.all.sample.id,
-  numerical_review: rand(10), content: Faker::Lorem.words(5), user_id: User.all.sample.id)
+                numerical_review: rand(10),
+                content: Faker::Lorem.words(5),
+                subject: review_subjects.sample,
+                user_id: User.all.sample.id)
 end
