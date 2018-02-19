@@ -1,7 +1,28 @@
 <%= render "layouts/navbar" %>
 <body>
-  <h1> User Profile Page </h1>
-  <% find_user %>
-  <h2>Username: <%= current_user.username %></h2>
-  <h2>Email: <%= current_user.email %></h2>
+  <div id="restaurant-outer-containter">
+    <div id="user-summary">
+      <h1> User Profile Page </h1>
+      <% find_user %>
+      <div id="welcome">
+        <h5>Hello, <%= current_user.username %>! See all of the reviews and restaurants you've posted below...</h5>
+      </div>
+      <div id="user-posted-restaurants">
+        <h3>Restaurants</h3>
+        <% current_user.restaurants.each do |restaurant| %>
+        <p><a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a> - <%= restaurant.city %>, <%= restaurant.state %></p>
+        <% end %>
+      </div>
+      <div id="user-posted-reviews">
+
+        <h3>Reviews</h3>
+        <% current_user.reviews.each do |review| %>
+        <p><label class="label label-primary" for="reviewNumber">Rating: <%= review.numerical_review %></label> - <a href="/restaurants/<%= review.restaurant_id %>"><%= review.subject %> </a>  (<%= review.restaurant.name %>)</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
 </body>
+
+<%= render "layouts/footer" %>
