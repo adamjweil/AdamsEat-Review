@@ -31,34 +31,47 @@
           <% end %>
 
 
-          <div id="review">
-            <center><h3>Leave A Review</h3></center>
-
-            <% if logged_in? %>
-            <form action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
-              <label for="rating">Rating:</label>
-              <select name="review[numerical_review]">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select><br><br>
-              <label for="content">Review: </label>
-              <input  type="text" name="review[content]" placeholder="Write Your Review Here" style="width:300px;height: 300px;"><br><br>
-              <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
-              <center><input type="submit" value="Post Your Review!" id="sub"></center>
-              <% else %>
-              <h5>You need to be logged in to post a review</h5>
-              <h5><a href="/sessions/new">Log in</a></h5>
-              <% end %>
-            </form>
+          <div id="new-review-form">
+            <div id="new-review-header">
+          <h3>Leave A Review</h3>
           </div>
+            <% if logged_in? %>
+            <form class="form" action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
+              <div class="form-group">
+                <label class="label label-default" for="reviewNumber">Rating: </label>
+                <select name="review[numerical_review]">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="reviewSubject">Subject: </label>
+                <input type="text" class="form-control" name="review[subject]" id="exampleInputEmail2" placeholder="Subject" style="width:500px" required>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="reviewReview">Review: </label>
+                <input type="text" class="form-control" name="review[content]" id="exampleInputEmail2" placeholder="Write Your Review Here" style="width:500px; height:150px;" required>
+                <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block" style="width: 250px; margin-left: 25%">Post Review!</button>
+              </div>
+            </form>
+            <% else %>
+            <h5>You need to be logged in to post a review</h5>
+            <h5><a href="/sessions/new">Log in</a></h5>
+            <% end %>
+          </div>
+
         </div>
       </div>
     </div>
