@@ -23,19 +23,25 @@
  /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
  nav {
-   max-width: 1200px;
-   margin-left: 100px;
-   margin-right: 100px;
+   /*max-width: 1200px;*/
+   /*margin-left: 100px;
+   margin-right: 100px;*/
  }
- #restaurant-containter {
-   max-width: 1200px;
-   height: 500px;
-   margin-left: 100px;
-   margin-right: 100px;
+ #restaurant-inner-containter {
+   max-width: 1100px;
+   min-width: 1000px;
+   min-height: 700px;
+   margin-left: 15%;
+   margin-right: 10%;
    margin-top: -25px;
-   border-left: 1px solid rgba(0,0,0,0.4);
-   border-right: 1px solid rgba(0,0,0,0.4);
+   border-left: 1px solid rgba(0,0,0,0.2);
+   border-right: 1px solid rgba(0,0,0,0.2);
+   background-color: white;
+   /*background: linear-gradient(#fdfbfb, #ebedee);*/
+ }
+ #restaurant-outer-containter {
    background: linear-gradient(#fdfbfb, #ebedee);
+   min-height: 1000px;;
  }
  #new-rest-container {
    max-width: 1200px;
@@ -88,6 +94,67 @@
   margin-bottom: 5px;
 }
 
+#restaurant-show {
+  width: 600px;
+  height: 200px;
+  border: 1px solid rgba(0,0,0,0.4);
+  border-radius: 1px;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+  /*background-color: #337ab7;*/
+}
+#restaurants-show-header {
+  width: 600px;
+  margin-left: -20px;
+    margin-top: -10px;
+
+  height: 30px;
+  /*background-color: #337ab7;*/
+  opacity:.5;
+}
+#restaurant-show-header h3 {
+  color: #337ab7;
+    /*margin-top: -10px;*/
+  font-size: 25px;
+  text-align: center;
+}
+#restaurant-show-header h4 {
+  /*color: #337ab7;*/
+    /*margin-top: -10px;*/
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+#restaurant-show-header h5 {
+  font-size: 10px;
+  text-align: right;
+}
+#restaurant-show-details {
+  padding-top: 10px;
+  /*background-color: white;*/
+  /*opacity: 1;*/
+}
+#restaurants-show-details h5 {
+  text-align: center;
+  /*font-size: 10px;*/
+}
+#review-show {
+  border: .5px solid rgba(0,0,0,0.2);
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #F0F8FF;
+}
+#review-header {
+  text-align: center;
+}
+#review-header h3 {
+  font-size: 25px;
+}
  #login-dp{
     min-width: 250px;
     padding: 14px 14px 0;
