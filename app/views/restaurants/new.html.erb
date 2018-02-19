@@ -24,13 +24,16 @@
             </div>
             <div class="form-group">
               <label class="sr-only" for="restaurantCity">City: </label>
-              <input type="text" class="form-control" name="restaurant[city]" id="exampleInputEmail2" placeholder="City" style="width: 220px; display:inline-block; margin-right: 15px" required>
+              <input type="text" class="form-control" name="restaurant[city]" id="exampleInputEmail2" placeholder="City" style="width: 175px; display:inline-block; margin-right: 15px" required>
 
               <label class="sr-only" for="restaurantState">State: </label>
-              <input type="text" class="form-control" name="restaurant[state]" id="exampleInputEmail2" placeholder="State" style="width: 100px; display:inline-block; margin-right: 15px" required>
+              <input type="text" class="form-control" name="restaurant[state]" id="exampleInputEmail2" placeholder="State" style="width: 60px; display:inline-block; margin-right: 15px" required>
 
               <label class="sr-only" for="restaurantState">Zip: </label>
-              <input type="text" class="form-control" name="restaurant[zip]" id="exampleInputEmail2" placeholder="Zip" style="width: 100px; display:inline-block" required>
+              <input type="text" class="form-control" name="restaurant[zip]" id="exampleInputEmail2" placeholder="Zip" style="width: 80px; display:inline-block; margin-right: 15px" required>
+
+              <label class="sr-only" for="restaurantCountry">Country: </label>
+              <input type="text" class="form-control" name="restaurant[country]" id="exampleInputEmail2" placeholder="Country" style="width: 90px; display:inline-block" required>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary btn-block" style="width: 150px; margin-left: 30%">Submit!</button>
@@ -45,3 +48,5 @@
     </div>
   </div>
 </body>
+
+<%= render "layouts/footer" %>

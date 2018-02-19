@@ -25,53 +25,60 @@
         </div>
         <% @restaurant.reviews.each do |review| %>
         <div id="review-show">
-          <h5><%= review.content %> (Score: <%= review.numerical_review %>)<h5>
+          <div id="review-number">
+            <h5><label class="label label-primary" for="reviewNumber"><%= review.numerical_review %></label>    <%= review.subject %></h5>
+          </div>
+          <div id="review-content">
+            <h5><%= review.content %></h5>
             <h6> - <%= review.user.username %><br></h6>
           </div>
-          <% end %>
-
-
-          <div id="new-review-form">
-            <div id="new-review-header">
-          <h3>Leave A Review</h3>
-          </div>
-            <% if logged_in? %>
-            <form class="form" action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
-              <div class="form-group">
-                <label class="label label-default" for="reviewNumber">Rating: </label>
-                <select name="review[numerical_review]">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-
-              </div>
-              <div class="form-group">
-                <label class="sr-only" for="reviewSubject">Subject: </label>
-                <input type="text" class="form-control" name="review[subject]" id="exampleInputEmail2" placeholder="Subject" style="width:500px" required>
-              </div>
-              <div class="form-group">
-                <label class="sr-only" for="reviewReview">Review: </label>
-                <input type="text" class="form-control" name="review[content]" id="exampleInputEmail2" placeholder="Write Your Review Here" style="width:500px; height:150px;" required>
-                <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block" style="width: 250px; margin-left: 25%">Post Review!</button>
-              </div>
-            </form>
-            <% else %>
-            <h5>You need to be logged in to post a review</h5>
-            <h5><a href="/sessions/new">Log in</a></h5>
-            <% end %>
-          </div>
-
         </div>
+        <% end %>
+
+
+        <div id="new-review-form">
+          <div id="new-review-header">
+            <h3>Leave A Review</h3>
+          </div>
+          <% if logged_in? %>
+          <form class="form" action="/restaurants/<%= @restaurant.id %>/reviews" method="post">
+            <div class="form-group">
+              <label class="label label-default" for="reviewNumber">Rating: </label>
+              <select name="review[numerical_review]">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="reviewSubject">Subject: </label>
+              <input type="text" class="form-control" name="review[subject]" id="exampleInputEmail2" placeholder="Subject" style="width:500px" required>
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="reviewReview">Review: </label>
+              <input type="text" class="form-control" name="review[content]" id="exampleInputEmail2" placeholder="Write Your Review Here" style="width:500px; height:150px;" required>
+              <input type="hidden" name="review[restaurant_id]" value="<%= @restaurant.id %>">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block" style="width: 250px; margin-left: 25%">Post Review!</button>
+            </div>
+          </form>
+          <% else %>
+          <h5>You need to be logged in to post a review</h5>
+          <h5><a href="/sessions/new">Log in</a></h5>
+          <% end %>
+        </div>
+
       </div>
     </div>
+  </div>
+
+  <%= render "layouts/footer" %>
